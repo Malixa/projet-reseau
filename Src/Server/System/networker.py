@@ -1,5 +1,6 @@
 import socket
 import select
+from .client import Client
 
 class Networker:
 
@@ -20,6 +21,13 @@ class Networker:
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind(('', 6666))
         pass
+
+    """
+        remove_client:
+        Permet de supprimer un client de la liste des clients
+    """
+    def remove_client(self, client):
+        self.clients.remove(client)
 
     """
         listen:
@@ -43,10 +51,9 @@ class Networker:
             if change == self.socket:
                 data = change.accept()
                 # Création d'un nouveau client 
-                client = Client(data[0], data[1][0])
-                self.clients.append(client)
-                ret.append(client)
-                # gérer une nouvelle connexion
+                cli = Client(data[0], data[1][0])
+                self.clients.append(cli)
+                #ret.append(client)
             else: 
                 ret.append(change)
         
