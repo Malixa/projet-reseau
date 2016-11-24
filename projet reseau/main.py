@@ -3,6 +3,15 @@
 from grid import *
 import  random
 import time
+import socket
+import select
+
+#creation des sockets, écoute, connexion
+ip = socket.socket(socket.AF_INET6, socket.SOCK_STREAM,0) 
+ip.setsockopt(socket.SOL_SOCKEET, socket.SO_REUSEADDR,1)
+ip.bind('',) #serveur, port, nom machine ?
+ip.listen(1)
+
 
 def main():
     grids = [grid(), grid(), grid()]
@@ -30,10 +39,11 @@ def main():
     grids[0].display()
     time.sleep(4)
     if grids[0].gameOver() == J1:
-        print("You win !") #print a la base
+        print("You win !")
         time.sleep(2)
     else:
         print("you loose !")
         time.sleep(2)
+
 
 main()
