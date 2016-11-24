@@ -7,8 +7,8 @@ import socket
 import select
 
 #creation des sockets, écoute, connexion
-ip = socket.socket(socket.AF_INET6, socket.SOCK_STREAM,0) 
-ip.setsockopt(socket.SOL_SOCKEET, socket.SO_REUSEADDR,1)
+ip = socket.socket(socket.AF_INET, socket.SOCK_STREAM,0) 
+#ip.setsockopt(socket.SOL_SOCKEET, socket.SO_REUSEADDR,1)
 ip.bind('',) #serveur, port, nom machine ?
 ip.listen(1)
 
