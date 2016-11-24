@@ -35,8 +35,21 @@ class Networker:
         données 
     """
     def watch(self):
-        socks = list(clients)
-        socks.append(self.socket)
-        changes = select.select(socks, list(), list())[0]
+        ret = list()
+        changes = list(self.clients)
+        changes.append(self.socket)
+        changes = select.select(changes, list(), list())[0] #TODO: va lever une erreur, méthode à implémenter dans Client
+        for change in changes: 
+            if change == self.socket:
+                data = change.accept()
+                # Création d'un nouveau client 
+                client = Client(data[0], data[1][0])
+                self.clients.append(client)
+                ret.append(client)
+                # gérer une nouvelle connexion
+            else: 
+                ret.append(change)
+        
+        return ret
 
         
