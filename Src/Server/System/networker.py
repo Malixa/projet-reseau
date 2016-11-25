@@ -51,7 +51,7 @@ class Networker:
             if change == self.socket:
                 data = change.accept()
                 # Création d'un nouveau client 
-                cli = Client(data[0], data[1][0])
+                cli = Client(self, data[0], data[1][0])
                 self.clients.append(cli)
                 #ret.append(client)
             else: 
