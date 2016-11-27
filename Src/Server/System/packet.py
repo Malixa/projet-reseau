@@ -26,11 +26,13 @@ class Packet(object):
 
             @param ctx: contexte dans lequel le paquet agis.
         """
-        raise NotImplementedError()
+        raise RuntimeError("N'est pas un paquet a recevoir.'")
 
 
-    """def answer(self):
+
+    def send(self):
+        """
             Permet au paquet d'envoyer une reponse
+        """
+        raise RuntimeError("N'est pas un paquet a envoyer.'")
 
-        raise NotImplementedError()"""
-    

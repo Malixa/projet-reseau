@@ -3,13 +3,17 @@ class Grid:
     def __init__(self):
         self.map = list()
         self.history = list()
+        self.lastplayer = -1
         for i in range(0, 8):
             self.map.append(0)
 
     def play(self, player, cell):
-        if self.map[cell] == 0:
+        if cell < 0 or cell > 8:
+            return False
+        if self.map[cell] == 0 and self.lastplayer != player.unit:
             self.map[cell] = player.unit
-            self.history.append(cell)
+            self.history.append(str(cell))
+            self.lastplayer = player.unit
             return True
         return False
 
