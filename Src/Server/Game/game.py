@@ -58,9 +58,11 @@ class Game(object):
                 return False
 
         if client.ip_address[0] in self.players_registry:
-            print("Game: Retour de "+str(self.players_registry[client.ip_address[0]]))
-            self.players.append(self.players_registry[client.ip_address[0]])
-            return True
+            # Si le joueur n'est pas deja dans la liste de joueur (jeu local)
+            if not self.players_registry[client.ip_address[0]] in self.players:
+                print("Game: Retour de "+str(self.players_registry[client.ip_address[0]]))
+                self.players.append(self.players_registry[client.ip_address[0]])
+                return True
 
         if self.is_full is False:
             player = Player(len(self.players)+1, client)

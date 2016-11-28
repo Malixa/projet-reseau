@@ -3,6 +3,8 @@ from System.client import Client
 from Game.player import Player
 from Game.game import Game
 
+from packetstate import PacketState
+
 class PacketPlace(Packet):
     """
         Represente un paquet demandant au serveur de
@@ -28,7 +30,9 @@ class PacketPlace(Packet):
             return
 
         if Game.Instance.grid.play(player, self.cell):
-            self.target.send("OK")
+            #Envoie de la nouvelle grille a tout les joueurs
+            packet = PacketState(self.target, None)
+            packet.send(to_all=True)
             return
         else:
             self.target.send("NOP")

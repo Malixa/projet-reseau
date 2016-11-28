@@ -49,6 +49,12 @@ class Client(object):
         data = data.encode("utf-8")
         self.socket.send(data)
 
+    def shout(self, data):
+        """
+            Envoie un string a tout les autres clients
+        """
+        self.server.send_all(data, self)
+
 
     def disconnect(self):
         """
