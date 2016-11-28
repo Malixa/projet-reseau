@@ -28,6 +28,6 @@ Pour confirmer le serveur renvoie "OK" au client.
 | NOP | NULL | Refus de la dernière commande | 
 | STATE | a,b,c....n | Retourne la liste des coups joués, impair: joueur 1, pair: joueur 2 | 
 | SCORE | a,b | a: score joueur 1, b: score joueur 2 |
-| DISCONNECTED | NULL | L'autre joueur s'est déconnecté | 
+| DISCONNECTED | ip | ip: Ip du deconnecté. L'autre joueur s'est déconnecté | 
 | SHUTDOWN | NULL | Le serveur s'est arrêté |  
 | TURN | NULL | C'est a ton tour de jouer (faire getState et autoriser placement) |
