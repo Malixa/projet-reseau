@@ -3,7 +3,7 @@ from System.client import Client
 from Game.player import Player
 from Game.game import Game
 
-from packetstate import PacketState
+from packetturn import PacketTurn
 
 class PacketPlace(Packet):
     """
@@ -14,7 +14,7 @@ class PacketPlace(Packet):
     def __init__(self, target, args):
         super(PacketPlace, self).__init__(target, args)
         self.cell = None
-        try:
+        try: # On renvoie nop si l'argument est invalide
             self.cell = int(args[0])
         except ValueError:
             self.target.send("NOP")
@@ -29,11 +29,14 @@ class PacketPlace(Packet):
             self.target.send("NOP")
             return
 
-        if Game.Instance.grid.play(player, self.cell):
-            #Envoie de la nouvelle grille a tout les joueurs
-            packet = PacketState(self.target, None)
-            packet.send(to_all=True)
-            return
+        if Game.Instance.play(player, self.cell):
+            # Changement de tour
+            Game.Instance.turn()
+            packet = PacketTurn(Game.Instance.get_current_player().client, None)
+            packet.send()
+            # Envoie validation au joueur
+            self.target.send("OK")
+            # TODO: implementer l'envoi a tout les observateurs
         else:
             self.target.send("NOP")
 

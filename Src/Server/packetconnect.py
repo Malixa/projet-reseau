@@ -3,6 +3,8 @@ from System.client import Client
 from Game.player import Player
 from Game.game import Game
 
+from packetturn import PacketTurn
+
 class PacketConnect(Packet):
     """
         Represente un paquet demandant au serveur d'enregistrer
@@ -16,7 +18,15 @@ class PacketConnect(Packet):
         if Game.Instance.insert_entity(self.target):
             self.target.send("OK")
         else:
-            self.target.send("Nop")
+            self.target.send("NOP")
+
+        # Lancement de la partie si tout est pret
+        if Game.Instance.is_ready():
+            client = Game.Instance.get_current_player().client
+            packet = PacketTurn(client, None)
+            packet.send()
+
+
 
 
 

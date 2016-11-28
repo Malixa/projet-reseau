@@ -13,8 +13,6 @@ class PacketState(Packet):
     def __init__(self, target, args):
         super(PacketState, self).__init__(target, args)
 
-    def send(self, to_all=False):
+    def send(self):
         msg = "STATE "+str(",").join(Game.Instance.grid.history)
-        if to_all:
-            self.target.shout(msg)
         self.target.send(msg)
