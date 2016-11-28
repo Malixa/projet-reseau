@@ -19,7 +19,7 @@ Pour confirmer le serveur renvoie "OK" au client.
 | GETSTATE | NULL | Récupération de l'état de la partie en cours | STATE 5,8,1 "La case 5 < joueur 1, la case 8 < joueur 2, la case 1 < joueur 1 | NON |
 | GETSCORE | NULL | Récupération du score des joueurs | SCORE a,b "a : score joueur 1, b : score joueur 2" | NON |
 | EXIT | NULL | Le joueur se déconnecte | OK | OUI |
-| PLACE | a "a: numéro de la case" | Place le jeton sauf si case déja occupée | OK / NOP "OK: si placé, NOP: sinon" | OUI |
+| PLACE | a "a: numéro de la case" | Place le jeton sauf si case déja occupée | STATE a,b...n / NOP "STATE: si placé, NOP: sinon" | OUI |
 
 
 | Commande serveur au client | Arguments | Effet |
