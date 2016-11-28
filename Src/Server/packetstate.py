@@ -1,5 +1,6 @@
 from System.packet import Packet
 from Game.grid import Grid
+from Game.game import Game
 """
     Module contenant le paquet state
 """
@@ -10,11 +11,8 @@ class PacketState(Packet):
     """
 
     def __init__(self, target, args):
-        if not isinstance(args[0], Grid):
-            raise TypeError("args est une liste devant contenir une grille a l'index 0.")
         super(PacketState, self).__init__(target, args)
-        self.grid = args[0]
 
     def send(self):
-        msg = "STATE "+str(",").join(self.grid.history)
+        msg = "STATE "+str(",").join(Game.Instance.grid.history)
         self.target.send(msg)

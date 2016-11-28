@@ -11,6 +11,6 @@ class PacketGetScore(Packet):
     """
 
     def do(self, ctx):
-        score = PacketScore(self.target, [ctx["players"]])
+        score = PacketScore(self.target, None)
         score.send()
 

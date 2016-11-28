@@ -1,6 +1,7 @@
 from System.packet import Packet
 from System.client import Client
 from Game.player import Player
+from Game.game import Game
 
 class PacketExit(Packet):
     """
@@ -12,16 +13,11 @@ class PacketExit(Packet):
         super(PacketExit, self).__init__(target, args)
 
     def do(self, ctx):
-        players = ctx["players"]
-        observers = ctx["observers"]
-        for player in players:
-            if player.client == self.target:
-                players.remove(player)
-        for observer in observers:
-            if observer.client == self.target:
-                observers.remove(observer)
-
-        self.target.send("OK")
+        if Game.Instance.remove_entity(self.target):
+            self.target.send("OK")
+        else:
+            # Ca ne devrait jamais arriver en jeu
+            self.target.send("NOP")
         self.target.disconnect()
 
 

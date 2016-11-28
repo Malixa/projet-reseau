@@ -1,6 +1,7 @@
 from System.packet import Packet
 from System.client import Client
 from Game.player import Player
+from Game.game import Game
 
 class PacketConnect(Packet):
     """
@@ -12,23 +13,10 @@ class PacketConnect(Packet):
         super(PacketConnect, self).__init__(target, args)
 
     def do(self, ctx):
-        players = ctx["players"]
-        observers = ctx["observers"]
-        for player in players:
-            if player.client == self.target:
-                self.target.send("NOP")
-                return
-        for observer in observers:
-            if observer.client == self.target:
-                self.target.send("NOP")
-                return
-        if len(players) < 2:
-            player = Player(len(players)+1, self.target)
-            players.append(player)
+        if Game.Instance.insert_entity(self.target):
+            self.target.send("OK")
         else:
-            # TODO: Implementer les observateurs
-            pass
-        self.target.send("OK")
+            self.target.send("Nop")
 
 
 

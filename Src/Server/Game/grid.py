@@ -3,7 +3,9 @@ class Grid:
     def __init__(self):
         self.map = list()
         self.history = list()
-        self.lastplayer = -1
+        # On simule le fait que le joueur 2 ai joue en dernier
+        # On attend ainsi que le joueur 1 joue en premier
+        self.lastplayer = 2
         for i in range(0, 8):
             self.map.append(0)
 

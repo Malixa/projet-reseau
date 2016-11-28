@@ -10,7 +10,7 @@ class Networker:
 
         # Une ne rend possible l'instanciation que d'un seul Networker
         if Networker.Instance != None:
-            raise Error("Une seule instance de Networker est possible.")
+            raise Exception("Une seule instance de Networker est possible.")
         Networker.Instance = self
 
         # Liste des sockets des clients connectés
@@ -51,7 +51,7 @@ class Networker:
             if change == self.socket:
                 data = change.accept()
                 # Création d'un nouveau client 
-                cli = Client(self, data[0], data[1][0])
+                cli = Client(self, data[0], data[1])
                 self.clients.append(cli)
                 #ret.append(client)
             else: 

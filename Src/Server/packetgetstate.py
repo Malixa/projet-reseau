@@ -12,7 +12,7 @@ class PacketGetState(Packet):
     """
 
     def do(self, ctx):
-        state = PacketState(self.target, [ctx['grid']])
+        state = PacketState(self.target, None)
         state.send()
 
 

@@ -12,7 +12,7 @@ class Client(object):
     def __init__(self, server, socket, ip):
         self.server = server
         self.socket = socket
-        self.ip = ip
+        self.ip_address = ip
 
 
     def fileno(self):
