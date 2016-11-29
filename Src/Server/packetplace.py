@@ -1,6 +1,9 @@
+"""
+    Ce module contient:
+        La classe PacketPlace: Paquet gerant une demande de placement sur la grille
+"""
+
 from System.packet import Packet
-from System.client import Client
-from Game.player import Player
 from Game.game import Game
 
 from packetturn import PacketTurn
@@ -19,7 +22,7 @@ class PacketPlace(Packet):
         except ValueError:
             self.target.send("NOP")
 
-    def do(self, ctx):
+    def run(self, ctx):
         # Si le parametre de la commande est invalide,
         # On ne fait rien
         if self.cell is None:
@@ -29,7 +32,7 @@ class PacketPlace(Packet):
             self.target.send("NOP")
             return
 
-        if Game.Instance.play(player, self.cell):
+        if player.play(self.cell):
             # Changement de tour
             Game.Instance.turn()
             packet = PacketTurn(Game.Instance.get_current_player().client, None)
@@ -39,6 +42,3 @@ class PacketPlace(Packet):
             # TODO: implementer l'envoi a tout les observateurs
         else:
             self.target.send("NOP")
-
-
-

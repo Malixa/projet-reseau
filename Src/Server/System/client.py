@@ -1,5 +1,6 @@
 """
-    Module contenant la classe Client
+    Ce module contient:
+    La classe Client: Represente un client connecte au serveur
 """
 
 class Client(object):
@@ -22,13 +23,6 @@ class Client(object):
         """
         return self.socket.fileno()
 
-    """def interact(self):
-        data = self.socket.recv(1024)
-        if len(data) == 0:
-            print(str(self.socket)+" disconnected")
-            return False
-
-        return True"""
 
     def receive(self):
         """

@@ -1,16 +1,16 @@
+"""
+    Ce module contient:
+        La classe PacketGetScore: Paquet gerant une demande de score
+"""
+
 from System.packet import Packet
 from packetscore import PacketScore
-
-"""
-    Module contenant la class PacketGetScore
-"""
 
 class PacketGetScore(Packet):
     """
         Packet envoye par le client demandant au serveur de renvoyer le score des differents joueurs
     """
 
-    def do(self, ctx):
+    def run(self, ctx):
         score = PacketScore(self.target, None)
         score.send()
-

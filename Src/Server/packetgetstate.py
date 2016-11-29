@@ -1,9 +1,10 @@
+"""
+    Ce module contient:
+        La classe PacketGetState: Paquet gerant une demande de l'etat de la partie
+"""
+
 from System.packet import Packet
 from packetstate import PacketState
-
-"""
-       Paquet contenant le paquet 'GetState'
-"""
 
 class PacketGetState(Packet):
     """
@@ -11,9 +12,6 @@ class PacketGetState(Packet):
         doit envoyer l'etat courant du jeu
     """
 
-    def do(self, ctx):
+    def run(self, ctx):
         state = PacketState(self.target, None)
         state.send()
-
-
-

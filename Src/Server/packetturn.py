@@ -1,4 +1,9 @@
-from System.packet import Packet 
+"""
+    Ce module contient:
+        La classe PacketConnect: Paquet communiquant a un joueur que c'est son tour de jouer
+"""
+
+from System.packet import Packet
 
 class PacketTurn(Packet):
     """

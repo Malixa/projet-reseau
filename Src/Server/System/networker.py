@@ -1,3 +1,8 @@
+"""
+    Ce module contient:
+    La classe Networker: Gere plusieurs connexions a diffrents clients
+"""
+
 import socket
 import select
 from .client import Client

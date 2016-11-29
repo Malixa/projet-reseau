@@ -1,5 +1,6 @@
 """
-    Module contenant la classe Packet
+    Ce module contient:
+    La classe Packet: realise une action sur le programme en fonction de donnees recues via socket
 """
 
 class Packet(object):
@@ -20,7 +21,7 @@ class Packet(object):
         self.target = target
         self.args = args
 
-    def do(self, ctx):
+    def run(self, ctx):
         """
             Demande au paquet de realier son action
 

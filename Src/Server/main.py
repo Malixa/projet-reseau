@@ -1,9 +1,6 @@
 from System.networker import Networker
-from System.client import Client
 from System.packetfactory import PacketFactory
 
-from Game.player import Player
-from Game.grid import Grid
 from Game.game import Game
 
 from packetconnect import PacketConnect
@@ -13,16 +10,22 @@ from packetgetstate import PacketGetState
 from packetgetscore import PacketGetScore
 
 
-def registerProto():
-    PacketFactory.Register("CONNECT", PacketConnect)
-    PacketFactory.Register("EXIT", PacketExit)
-    PacketFactory.Register("PLACE", PacketPlace)
-    PacketFactory.Register("GETSTATE", PacketGetState)
-    PacketFactory.Register("GETSCORE", PacketGetScore)
+def register_proto():
+    """
+        Associe les differents types de paquets a leur commande.
+    """
+    PacketFactory.register("CONNECT", PacketConnect)
+    PacketFactory.register("EXIT", PacketExit)
+    PacketFactory.register("PLACE", PacketPlace)
+    PacketFactory.register("GETSTATE", PacketGetState)
+    PacketFactory.register("GETSCORE", PacketGetScore)
 
 
 def main():
-
+    """
+        Lance le serveur est gere la routine
+        de base
+    """
     server = Networker()
     server.listen()
 
@@ -37,12 +40,12 @@ def main():
                 data = "EXIT" #Force la creation d'un paquet exit pour de fermer proprement la cnx
                 continue
             try:
-                packet = PacketFactory.ExamineAndCreate(data, client)
-                packet.do(None)
+                packet = PacketFactory.examine_and_create(data, client)
+                packet.run(None)
             except KeyError:
                 #Le paquet envoye n'existe pas pour le serveur, on renvoit Nop au client
                 client.send("NOP")
 
 
-registerProto()
+register_proto()
 main()

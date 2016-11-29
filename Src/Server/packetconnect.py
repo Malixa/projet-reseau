@@ -1,6 +1,9 @@
+"""
+    Ce module contient:
+        La classe PacketConnect: Paquet gerant une nouvelle connexion
+"""
+
 from System.packet import Packet
-from System.client import Client
-from Game.player import Player
 from Game.game import Game
 
 from packetturn import PacketTurn
@@ -14,7 +17,7 @@ class PacketConnect(Packet):
     def __init__(self, target, args):
         super(PacketConnect, self).__init__(target, args)
 
-    def do(self, ctx):
+    def run(self, ctx):
         if Game.Instance.insert_entity(self.target):
             self.target.send("OK")
         else:
@@ -25,8 +28,4 @@ class PacketConnect(Packet):
             client = Game.Instance.get_current_player().client
             packet = PacketTurn(client, None)
             packet.send()
-
-
-
-
-
+        

@@ -1,17 +1,17 @@
-from System.packet import Packet 
-from Game.player import Player
-from Game.game import Game
+"""
+    Ce module contient:
+        La classe PacketScore: Paquet communiquant les scores
+"""
 
-"""
-    Module contenant la class PacketScore
-"""
+
+from System.packet import Packet
+from Game.game import Game
 
 class PacketScore(Packet):
     """
         Classe permettant au serveur d'envoyer a un de ses clients
         le score des differents joueurs en jeu
     """
-
 
     def __init__(self, target, args):
         super(PacketScore, self).__init__(target, args)
@@ -24,4 +24,3 @@ class PacketScore(Packet):
             msg = msg + str(player.score) +","
         msg = msg[:-1] #On supprime le dernier ","
         self.target.send(msg)
-

@@ -1,9 +1,10 @@
+"""
+    Ce module contient:
+        La classe Game: Gere le deroulement d'une partie
+"""
+
 from .player import Player
 from .grid import Grid
-
-"""
-    Module contenant la classe Game
-"""
 
 class Game(object):
     """
@@ -56,20 +57,6 @@ class Game(object):
         if self.players_number < 2:
             return False
         return True
-
-
-    def play(self, player, cell):
-        """
-            Permet a un joueur de jouer un coup
-        """
-        if self.is_ready is False:
-            return False
-
-        if player == self.players[self.playing]:
-            res = self.grid.play(player, cell)
-            return res
-        else:
-            return False
 
     def turn(self):
         """

@@ -1,6 +1,9 @@
+"""
+    Ce module contient:
+        La classe PacketExit: Paquet gerant la deconnexion d'un client
+"""
+
 from System.packet import Packet
-from System.client import Client
-from Game.player import Player
 from Game.game import Game
 
 from packetdisconnected import PacketDisconnected
@@ -14,7 +17,7 @@ class PacketExit(Packet):
     def __init__(self, target, args):
         super(PacketExit, self).__init__(target, args)
 
-    def do(self, ctx):
+    def run(self, ctx):
         is_player = False
 
         if Game.Instance.get_player_with_client(self.target) is not None:
@@ -39,5 +42,3 @@ class PacketExit(Packet):
                 packet.send()
 
         self.target.disconnect()
-
-
