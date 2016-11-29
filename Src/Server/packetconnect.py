@@ -28,4 +28,3 @@ class PacketConnect(Packet):
             client = Game.Instance.get_current_player().client
             packet = PacketTurn(client, None)
             packet.send()
-        
