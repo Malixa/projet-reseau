@@ -5,7 +5,7 @@
 
 class Client(object):
     """
-        Represente un client connecte a un serveur
+        Represente un client connecte au serveur.
 
         Abstraction de socket.
     """
