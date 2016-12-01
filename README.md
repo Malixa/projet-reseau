@@ -2,10 +2,11 @@
 
 ## TODO
 
-* Coder protocole(Clovis)
-* Coder serveur  (Clovis)
-* Coder client  (Célia)
-* Ajouter bot (???)
+[x] Coder protocole(Clovis)
+[ ] Coder serveur  (Clovis)
+    * Corriger bug du tour lors de la reconnexion
+[ ] Coder client  (Célia)
+[ ] Ajouter bot (???)
 
 
 ## Protocole 
