@@ -36,6 +36,7 @@ class Networker(object):
             Permet de supprimer un client de la liste des clients
         """
         self.clients.remove(client)
+        print("removing:" + str(client))
 
 
     def listen(self):

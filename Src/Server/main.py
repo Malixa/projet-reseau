@@ -38,7 +38,6 @@ def main():
             data = client.receive()
             if len(data) == 0:
                 data = "EXIT" #Force la creation d'un paquet exit pour de fermer proprement la cnx
-                continue
             try:
                 packet = packetfactory.PacketFactory.examine_and_create(data, client)
                 packet.run(None)

@@ -6,8 +6,15 @@
 - [ ] Coder serveur  (Clovis)
     * Corriger bug du tour lors de la reconnexion
 - [ ] Coder client  (Célia)
-- [ ] Ajouter bot (???)
 
+### Extensions
+
+- [ ] Jouer plusieurs parties
+- [ ] Ajouter bot (???)
+- [X] observateurs
+- [ ] A la fin d'une partie, on selectionne deux nouveaux joueurs parmis les joueurs/observateurs
+- [X] gérer la déconnexion
+- [X] gérer les crashs du client
 
 ## Protocole 
 
