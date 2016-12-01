@@ -56,6 +56,4 @@ class Client(object):
         """
         self.server.remove_client(self)
         self.socket.close()
-
-
-        
+ 

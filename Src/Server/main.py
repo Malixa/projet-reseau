@@ -1,3 +1,8 @@
+"""
+    Point d'entree du programme de serveur
+"""
+
+
 import System.networker as networker
 import System.packetfactory as packetfactory
 
