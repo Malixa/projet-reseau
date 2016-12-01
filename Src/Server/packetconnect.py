@@ -30,7 +30,6 @@ class PacketConnect(Packet):
         packet.send()
 
         # Lancement de la partie si tout est pret, Si le jeu est pret et que l'on a ajoute un joueur
-        #TODO: revoir et securiser cette partie
         if Game.Instance.is_ready() and role == Roles.Player:
             client = Game.Instance.get_current_player().client
             packet = PacketTurn(client, None)

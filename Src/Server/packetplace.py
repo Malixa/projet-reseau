@@ -29,7 +29,8 @@ class PacketPlace(Packet):
         if self.cell is None:
             return
         player = Game.Instance.get_player_with_client(self.target)
-        if player is None:
+        #print(Game.Instance.get_real_players_number())
+        if player is None or Game.Instance.is_ready() is False:
             self.target.send("NOP")
             return
 

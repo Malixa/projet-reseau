@@ -3,9 +3,9 @@
         La classe PacketConnect: Paquet communiquant a un joueur que c'est son tour de jouer
 """
 
-from System.packet import Packet
+import System.packet
 
-class PacketTurn(Packet):
+class PacketTurn(System.packet.Packet):
     """
         Paquet indiquant a un joueur que c'est a son tour de jouer
     """
