@@ -6,8 +6,11 @@
 import System.packet as packet
 import Game.game as game
 
+import Game.ends as ends
+
 import packetturn
 import packetstate
+import packetend
 
 class PacketPlace(packet.Packet):
     """
@@ -35,6 +38,21 @@ class PacketPlace(packet.Packet):
             return
 
         if ply.play(self.cell):
+            # Envoie validation au joueur
+            self.target.send("OK")
+            # Test de la fin de la partie
+            if game.Game.Instance.won(ply):
+                # Envoi de win au gagnant
+                pkt = packetend.PacketEnd(ply.client, [ends.Ends.Win])
+                pkt.send()
+                ply = game.Game.Instance.get_other_player(ply)
+                if ply is None:
+                    raise RuntimeError("Pas assez de joueurs pour gagner la partie")
+                # Envoi de loose au perdant
+                pkt = packetend.PacketEnd(ply.client, [ends.Ends.Loose])
+                pkt.send()
+                game.Game.restart()
+                return
             # Changement de tour
             game.Game.Instance.turn()
             pkt = packetturn.PacketTurn(game.Game.Instance.get_current_player().client, None)
@@ -42,7 +60,6 @@ class PacketPlace(packet.Packet):
             for observer in game.Game.Instance.observers:
                 pkt = packetstate.PacketState(observer.client, None)
                 pkt.send()
-            # Envoie validation au joueur
-            self.target.send("OK")
+
         else:
             self.target.send("NOP")

@@ -34,7 +34,7 @@ class Grid(object):
             return True
         return False
 
-    def won(self, player):
+    def won(self, unit):
         """
             Determine si le joueur player
             a gagne la partie.
@@ -42,14 +42,14 @@ class Grid(object):
             False sinon
         """
         for col in range(3):
-            if self.map[col*3] == player.unit and self.map[col*3+1] == player.unit and self.map[col*3+2] == player.unit:
+            if self.map[col*3] == unit and self.map[col*3+1] == unit and self.map[col*3+2] == unit:
                 return True
         for line in range(3):
-            if self.map[line] == player.unit and self.map[3+line] == player.unit and self.map[6+line] == player.unit:
+            if self.map[line] == unit and self.map[3+line] == unit and self.map[6+line] == unit:
                 return True
-        if self.map[0] == player.unit and self.map[4] == player.unit and self.map[8] == player.unit:
+        if self.map[0] == unit and self.map[4] == unit and self.map[8] == unit:
             return True
-        if self.map[2] == player.unit and self.map[4] == player.unit and self.map[6] == player.unit:
+        if self.map[2] == unit and self.map[4] == unit and self.map[6] == unit:
             return True
         return False
 

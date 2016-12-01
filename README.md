@@ -40,3 +40,4 @@ Pour confirmer le serveur renvoie "OK" au client.
 | SHUTDOWN | NULL | Le serveur s'est arrêté |  
 | TURN | NULL | C'est a ton tour de jouer (faire getState et autoriser placement) |
 | ROLE | observer ou player | observer si observateur, player si joueur. Indique au client son role |
+| END | win ou loose | win si le joueur a gagné, loose sinon, indique la fin d'une partie | 

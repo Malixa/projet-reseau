@@ -21,6 +21,7 @@ class Game(object):
         """
             Permet de lancer une nouvelle partie unique
         """
+        Game.Instance = None
         Game.Instance = Game()
 
     def __init__(self):
@@ -43,6 +44,16 @@ class Game(object):
             if ply.client == client:
                 return ply
 
+        return None
+
+    def get_other_player(self, ply):
+        """
+            Retourne un autre joueur que celui passe
+            en parametre
+        """
+        for ele in self.players:
+            if ele != ply and not ele is None:
+                return ele
         return None
 
     def get_current_player(self):
@@ -133,4 +144,10 @@ class Game(object):
                 return True
 
         return False
+
+    def won(self, ply):
+        """
+            Indique True si la partie est finie, False sinon
+        """
+        return self.grid.won(ply.unit)
         
