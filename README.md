@@ -16,7 +16,7 @@ Pour confirmer le serveur renvoie "OK" au client.
 
 | Commande client au serveur | Arguments | Effet | Réponse | Action joueur |
 |----------|-----------|-------|---------|---------------|
-| CONNECT | NULL | Entraine initialisation du joueur coté serveur | OK | NON |
+| CONNECT | NULL | Entraine initialisation du joueur coté serveur | ROLE si réussi ou NOP si erreur | NON |
 | GETSTATE | NULL | Récupération de l'état de la partie en cours | STATE 5,8,1 "La case 5 < joueur 1, la case 8 < joueur 2, la case 1 < joueur 1 | NON |
 | GETSCORE | NULL | Récupération du score des joueurs | SCORE a,b "a : score joueur 1, b : score joueur 2" | NON |
 | EXIT | NULL | Le joueur se déconnecte | OK | OUI |
