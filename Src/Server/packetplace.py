@@ -3,13 +3,13 @@
         La classe PacketPlace: Paquet gerant une demande de placement sur la grille
 """
 
-from System.packet import Packet
-from Game.game import Game
+import System.packet as packet
+import Game.game as game
 
-from packetturn import PacketTurn
-from packetstate import PacketState
+import packetturn
+import packetstate
 
-class PacketPlace(Packet):
+class PacketPlace(packet.Packet):
     """
         Represente un paquet demandant au serveur de
         jouer un coup a une cellule donnee
@@ -28,20 +28,20 @@ class PacketPlace(Packet):
         # On ne fait rien
         if self.cell is None:
             return
-        player = Game.Instance.get_player_with_client(self.target)
+        ply = game.Game.Instance.get_player_with_client(self.target)
         #print(Game.Instance.get_real_players_number())
-        if player is None or Game.Instance.is_ready() is False:
+        if ply is None or game.Game.Instance.is_ready() is False:
             self.target.send("NOP")
             return
 
-        if player.play(self.cell):
+        if ply.play(self.cell):
             # Changement de tour
-            Game.Instance.turn()
-            packet = PacketTurn(Game.Instance.get_current_player().client, None)
-            packet.send()
-            for observer in Game.Instance.observers:
-                packet = PacketState(observer.client, None)
-                packet.send()
+            game.Game.Instance.turn()
+            pkt = packetturn.PacketTurn(game.Game.Instance.get_current_player().client, None)
+            pkt.send()
+            for observer in game.Game.Instance.observers:
+                pkt = packetstate.PacketState(observer.client, None)
+                pkt.send()
             # Envoie validation au joueur
             self.target.send("OK")
         else:

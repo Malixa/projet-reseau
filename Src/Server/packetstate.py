@@ -3,10 +3,10 @@
         La classe PacketConnect: Paquet communiquant l'etat du jeu
 """
 
-from System.packet import Packet
-from Game.game import Game
+import System.packet as packet
+import Game.game as game
 
-class PacketState(Packet):
+class PacketState(packet.Packet):
     """
         Paquet contenant l'etat actuel du jeu
     """
@@ -15,5 +15,5 @@ class PacketState(Packet):
         super(PacketState, self).__init__(target, args)
 
     def send(self):
-        msg = "STATE "+str(",").join(Game.Instance.grid.history)
+        msg = "STATE "+str(",").join(game.Game.Instance.grid.history)
         self.target.send(msg)

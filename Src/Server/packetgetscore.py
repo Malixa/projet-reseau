@@ -3,14 +3,14 @@
         La classe PacketGetScore: Paquet gerant une demande de score
 """
 
-from System.packet import Packet
-from packetscore import PacketScore
+import System.packet as packet
+import packetscore
 
-class PacketGetScore(Packet):
+class PacketGetScore(packet.Packet):
     """
         Packet envoye par le client demandant au serveur de renvoyer le score des differents joueurs
     """
 
     def run(self, ctx):
-        score = PacketScore(self.target, None)
+        score = packetscore.PacketScore(self.target, None)
         score.send()

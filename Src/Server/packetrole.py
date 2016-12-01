@@ -3,10 +3,10 @@
         La classe PacketRole:  indique a un participant son role dans la partie
 """
 
-from System.packet import Packet
+import System.packet as packet
 
 
-class PacketRole(Packet):
+class PacketRole(packet.Packet):
     """
         Indique a un participant son role dans la partie
     """

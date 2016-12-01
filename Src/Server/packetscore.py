@@ -4,10 +4,10 @@
 """
 
 
-from System.packet import Packet
-from Game.game import Game
+import System.packet as packet
+import Game.game as game
 
-class PacketScore(Packet):
+class PacketScore(packet.Packet):
     """
         Classe permettant au serveur d'envoyer a un de ses clients
         le score des differents joueurs en jeu
@@ -20,7 +20,7 @@ class PacketScore(Packet):
         msg = "SCORE "
         #Normalement les joueurs sont ordonnes dans le bon ordre:
         #joueur 1 a l'index 0, j2 a l'index 1 etc...
-        for player in Game.Instance.players:
+        for player in game.Game.Instance.players:
             msg = msg + str(player.score) +","
         msg = msg[:-1] #On supprime le dernier ","
         self.target.send(msg)

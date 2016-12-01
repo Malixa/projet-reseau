@@ -3,16 +3,16 @@
         La classe PacketConnect: Paquet gerant une nouvelle connexion
 """
 
-from System.packet import Packet
+import System.packet as packet
 
-from Game.game import Game
-from Game.roles import Roles
+import Game.game as game
+import Game.roles as roles
 
-from packetturn import PacketTurn
-from packetrole import PacketRole
+import packetturn
+import packetrole
 
 
-class PacketConnect(Packet):
+class PacketConnect(packet.Packet):
     """
         Represente un paquet demandant au serveur d'enregistrer
         un client en tant que joueur si possible, ou observateur sinon.
@@ -22,15 +22,15 @@ class PacketConnect(Packet):
         super(PacketConnect, self).__init__(target, args)
 
     def run(self, ctx):
-        role = Game.Instance.insert_entity(self.target)
+        role = game.Game.Instance.insert_entity(self.target)
         if role is None:
             self.target.send("NOP")
             return
-        packet = PacketRole(self.target, [role])
-        packet.send()
+        pkt = packetrole.PacketRole(self.target, [role])
+        pkt.send()
 
         # Lancement de la partie si tout est pret, Si le jeu est pret et que l'on a ajoute un joueur
-        if Game.Instance.is_ready() and role == Roles.Player:
-            client = Game.Instance.get_current_player().client
-            packet = PacketTurn(client, None)
-            packet.send()
+        if game.Game.Instance.is_ready() and role == roles.Roles.Player:
+            client = game.Game.Instance.get_current_player().client
+            pkt = packetturn.PacketTurn(client, None)
+            pkt.send()

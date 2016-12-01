@@ -1,24 +1,24 @@
-from System.networker import Networker
-from System.packetfactory import PacketFactory
+import System.networker as networker
+import System.packetfactory as packetfactory
 
-from Game.game import Game
+import Game.game as game
 
-from packetconnect import PacketConnect
-from packetexit import PacketExit
-from packetplace import PacketPlace
-from packetgetstate import PacketGetState
-from packetgetscore import PacketGetScore
+import packetconnect
+import packetexit
+import packetplace
+import packetgetstate
+import packetgetscore
 
 
 def register_proto():
     """
         Associe les differents types de paquets a leur commande.
     """
-    PacketFactory.register("CONNECT", PacketConnect)
-    PacketFactory.register("EXIT", PacketExit)
-    PacketFactory.register("PLACE", PacketPlace)
-    PacketFactory.register("GETSTATE", PacketGetState)
-    PacketFactory.register("GETSCORE", PacketGetScore)
+    packetfactory.PacketFactory.register("CONNECT", packetconnect.PacketConnect)
+    packetfactory.PacketFactory.register("EXIT", packetexit.PacketExit)
+    packetfactory.PacketFactory.register("PLACE", packetplace.PacketPlace)
+    packetfactory.PacketFactory.register("GETSTATE", packetgetstate.PacketGetState)
+    packetfactory.PacketFactory.register("GETSCORE", packetgetscore.PacketGetScore)
 
 
 def main():
@@ -26,11 +26,11 @@ def main():
         Lance le serveur est gere la routine
         de base
     """
-    server = Networker()
+    server = networker.Networker()
     server.listen()
 
     # Lancement d'une nouvelle partie
-    Game.restart()
+    game.Game.restart()
     while True:
         clients = server.watch()
         for client in clients:
@@ -40,7 +40,7 @@ def main():
                 data = "EXIT" #Force la creation d'un paquet exit pour de fermer proprement la cnx
                 continue
             try:
-                packet = PacketFactory.examine_and_create(data, client)
+                packet = packetfactory.PacketFactory.examine_and_create(data, client)
                 packet.run(None)
             except KeyError:
                 #Le paquet envoye n'existe pas pour le serveur, on renvoit Nop au client

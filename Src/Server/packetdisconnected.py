@@ -3,9 +3,9 @@
         La classe PacketDisconnect: Paquet communiquant une deconnexion
 """
 
-from System.packet import Packet
+import System.packet as packet
 
-class PacketDisconnected(Packet):
+class PacketDisconnected(packet.Packet):
     """
         Paquet indiquant a son recepteur que l'un des joueurs
         s'est deconnecte

@@ -3,12 +3,12 @@
         La classe PacketExit: Paquet gerant la deconnexion d'un client
 """
 
-from System.packet import Packet
-from Game.game import Game
+import System.packet as packet
+import Game.game as game
 
-from packetdisconnected import PacketDisconnected
+import packetdisconnected
 
-class PacketExit(Packet):
+class PacketExit(packet.Packet):
     """
         Represente un paquet demandant au serveur de deconnecter
         l'expediteur proprement
@@ -20,10 +20,10 @@ class PacketExit(Packet):
     def run(self, ctx):
         is_player = False
 
-        if Game.Instance.get_player_with_client(self.target) is not None:
+        if game.Game.Instance.get_player_with_client(self.target) is not None:
             is_player = True
 
-        if Game.Instance.remove_entity(self.target):
+        if game.Game.Instance.remove_entity(self.target):
             self.target.send("OK")
         else:
             # Ca ne devrait jamais arriver en jeu
@@ -32,13 +32,13 @@ class PacketExit(Packet):
         if is_player:
             # Si le deconnecte etait un joueur, on envoie
             # a tout le monde qu'il est parti
-            for player in Game.Instance.players:
+            for player in game.Game.Instance.players:
                 if player is None:
                     continue
-                packet = PacketDisconnected(player.client, [self.target.ip_address])
-                packet.send()
-            for observers in Game.Instance.observers:
-                packet = PacketDisconnected(observers.client, [self.target.ip_address])
-                packet.send()
+                pkt = packetdisconnected.PacketDisconnected(player.client, [self.target.ip_address])
+                pkt.send()
+            for observers in game.Game.Instance.observers:
+                pkt = packetdisconnected.PacketDisconnected(observers.client, [self.target.ip_address])
+                pkt.send()
 
         self.target.disconnect()
