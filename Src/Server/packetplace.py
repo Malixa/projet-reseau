@@ -7,6 +7,7 @@ from System.packet import Packet
 from Game.game import Game
 
 from packetturn import PacketTurn
+from packetstate import PacketState
 
 class PacketPlace(Packet):
     """
@@ -37,8 +38,10 @@ class PacketPlace(Packet):
             Game.Instance.turn()
             packet = PacketTurn(Game.Instance.get_current_player().client, None)
             packet.send()
+            for observer in Game.Instance.observers:
+                packet = PacketState(observer.client, None)
+                packet.send()
             # Envoie validation au joueur
             self.target.send("OK")
-            # TODO: implementer l'envoi a tout les observateurs
         else:
             self.target.send("NOP")

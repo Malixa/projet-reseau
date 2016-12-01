@@ -3,8 +3,10 @@
         La classe Game: Gere le deroulement d'une partie
 """
 
+from .entity import Entity
 from .player import Player
 from .grid import Grid
+from .roles import Roles
 
 class Game(object):
     """
@@ -72,12 +74,12 @@ class Game(object):
         for player in self.players:
             if player is not None and player.client == client:
                 print("Game: deja enregistre")
-                return False
+                return None
 
         for observer in self.observers:
             if observer.client == client:
                 print("Game: deja enregistre")
-                return False
+                return None
 
         if client.ip_address[0] in self.players_registry:
             # Si le joueur n'est pas deja dans la liste de joueur (jeu local)
@@ -89,7 +91,7 @@ class Game(object):
                 self.players[saved.unit - 1] = saved
                 print("Restaure en "+str(saved.unit - 1))
                 self.players_number = self.players_number + 1
-                return True
+                return Roles.Player
 
         if self.is_full is False:
             player = Player(len(self.players)+1, client)
@@ -99,10 +101,11 @@ class Game(object):
             if len(self.players) >= 2:
                 self.is_full = True
             print("Game: ajout du joueur "+str(player))
-            return True
+            return Roles.Player
         else:
-            # TODO: implementer les observateurs
-            pass
+            observer = Entity(client)
+            self.observers.append(observer)
+            return Roles.Observer
 
     def remove_entity(self, client):
         """

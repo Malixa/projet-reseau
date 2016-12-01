@@ -4,7 +4,6 @@
 """
 
 from .entity import Entity
-from .game import Game
 
 class Player(Entity):
     """
@@ -24,6 +23,8 @@ class Player(Entity):
             Retourne True si le joueur a pu jouer,
             False sinon.
         """
+        from .game import Game # Local import pour eviter import loop
+        # TODO: a revoir l'import loop
         if Game.Instance.is_ready() is False or self is not Game.Instance.get_current_player():
             return False
         return Game.Instance.grid.place(self.unit, cell)

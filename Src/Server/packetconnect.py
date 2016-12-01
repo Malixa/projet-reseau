@@ -4,9 +4,13 @@
 """
 
 from System.packet import Packet
+
 from Game.game import Game
+from Game.roles import Roles
 
 from packetturn import PacketTurn
+from packetrole import PacketRole
+
 
 class PacketConnect(Packet):
     """
@@ -18,13 +22,16 @@ class PacketConnect(Packet):
         super(PacketConnect, self).__init__(target, args)
 
     def run(self, ctx):
-        if Game.Instance.insert_entity(self.target):
-            self.target.send("OK")
-        else:
+        role = Game.Instance.insert_entity(self.target)
+        if role is None:
             self.target.send("NOP")
+            return
+        packet = PacketRole(self.target, [role])
+        packet.send()
 
-        # Lancement de la partie si tout est pret
-        if Game.Instance.is_ready():
+        # Lancement de la partie si tout est pret, Si le jeu est pret et que l'on a ajoute un joueur
+        #TODO: revoir et securiser cette partie
+        if Game.Instance.is_ready() and role == Roles.Player:
             client = Game.Instance.get_current_player().client
             packet = PacketTurn(client, None)
             packet.send()

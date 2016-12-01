@@ -3,6 +3,8 @@
         La classe Entity: Element de base present en jeu.
 """
 
+
+
 class Entity(object):
     """
         Element de base present en jeu.
@@ -12,3 +14,9 @@ class Entity(object):
 
     def __init__(self, client):
         self.client = client
+
+    def send(self, data):
+        """
+            Wrapper vers la methode send du client
+        """
+        self.client.send(data)
