@@ -42,6 +42,7 @@ class PacketPlace(packet.Packet):
             self.target.send("OK")
             # Test de la fin de la partie
             if game.Game.Instance.won(ply):
+                # Gestion de la fin de partie
                 # Envoi de win au gagnant
                 pkt = packetend.PacketEnd(ply.client, [ends.Ends.Win])
                 pkt.send()
@@ -51,6 +52,11 @@ class PacketPlace(packet.Packet):
                 # Envoi de loose au perdant
                 pkt = packetend.PacketEnd(ply.client, [ends.Ends.Loose])
                 pkt.send()
+                # Envoi de end a tout les observers
+                for observer in game.Game.Instance.observers:
+                    pkt = packetend.PacketEnd(observer.client, None)
+                    pkt.send()
+                # Lancement de nouvelle partie
                 game.Game.restart()
                 return
             # Changement de tour

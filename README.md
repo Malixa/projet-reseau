@@ -9,10 +9,10 @@
 
 ### Extensions
 
-- [ ] Jouer plusieurs parties
+- [x] Jouer plusieurs parties
 - [ ] Ajouter bot (???)
 - [X] observateurs
-- [ ] A la fin d'une partie, on selectionne deux nouveaux joueurs parmis les joueurs/observateurs
+- [x] A la fin d'une partie, on selectionne deux nouveaux joueurs parmis les joueurs/observateurs
 - [X] gérer la déconnexion
 - [X] gérer les crashs du client
 
@@ -40,4 +40,8 @@ Pour confirmer le serveur renvoie "OK" au client.
 | SHUTDOWN | NULL | Le serveur s'est arrêté |  
 | TURN | NULL | C'est a ton tour de jouer (faire getState et autoriser placement) |
 | ROLE | observer ou player | observer si observateur, player si joueur. Indique au client son role |
-| END | win ou loose | win si le joueur a gagné, loose sinon, indique la fin d'une partie | 
+| END | win ou loose ou rien | win si le joueur a gagné, loose sinon, ou rien si envoye a un observer. Indique la fin d'une partie | 
+
+## Gestion de plusieurs parties
+
+Lors de la reception d'un paquet End, le client peut renvoyer CONNECT. Les deux premier CONNECT reçus par le serveur seront les joueurs. 

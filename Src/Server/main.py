@@ -31,13 +31,15 @@ def main():
         Lance le serveur est gere la routine
         de base
     """
-    server = networker.Networker()
-    server.listen()
+
+    # Lancement de l'instance de networker
+    networker.Networker.start()
+    networker.Networker.Instance.listen()
 
     # Lancement d'une nouvelle partie
     game.Game.restart()
     while True:
-        clients = server.watch()
+        clients = networker.Networker.Instance.watch()
         for client in clients:
             #Etablissement du paquet
             data = client.receive()

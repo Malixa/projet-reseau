@@ -16,12 +16,19 @@ class Networker(object):
 
     Instance = None
 
+    @staticmethod
+    def start():
+        """
+            Initialise une nouvelle instance de classe
+        """
+        Networker.Instance = None
+        Networker.Instance = Networker()
+
     def __init__(self):
 
         # Une ne rend possible l'instanciation que d'un seul Networker
         if Networker.Instance != None:
             raise Exception("Une seule instance de Networker est possible.")
-        Networker.Instance = self
 
         # Liste des sockets des clients connectes
         self.clients = list()
