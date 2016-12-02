@@ -41,7 +41,7 @@ class Game(object):
             en parametre
         """
         for ply in self.players:
-            if ply.client == client:
+            if ply is not None and ply.client == client:
                 return ply
 
         return None
@@ -132,7 +132,7 @@ class Game(object):
         """
         for i in range(0, len(self.players)):
             ply = self.players[i]
-            if ply.client == client:
+            if ply is not None and ply.client == client:
                 #print("Game: "+str(player)+" quitte la partie")
                 self.players[i] = None
                 return True

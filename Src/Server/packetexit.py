@@ -7,6 +7,7 @@ import System.packet as packet
 import Game.game as game
 
 import packetdisconnected
+import packetend
 
 class PacketExit(packet.Packet):
     """
@@ -40,5 +41,11 @@ class PacketExit(packet.Packet):
             for observers in game.Game.Instance.observers:
                 pkt = packetdisconnected.PacketDisconnected(observers.client, [self.target.ip_address])
                 pkt.send()
+            # Si le nombre de joueurs tombe a 0, on finit la partie et on la relance
+            if game.Game.Instance.get_real_players_number() <= 0:
+                for observer in game.Game.Instance.observers:
+                    pkt = packetend.PacketEnd(observer.client, None)
+                    pkt.send()
+                game.Game.restart()
 
         self.target.disconnect()
