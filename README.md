@@ -1,9 +1,13 @@
 # Morpion aveugle 
 
+## Avant-Propos
+
+Ce projet nécessite l'utilisation de python 3.5+ pour fonctionner (commande python3).
+
 ## TODO
 
 - [x] Coder protocole(Clovis)
-- [ ] Coder serveur  (Clovis)
+- [x] Coder serveur  (Clovis)
     * Corriger bug du tour lors de la reconnexion
 - [ ] Coder client  (Célia)
 
