@@ -117,7 +117,16 @@ def obs(data):
             
         
             
-def main()
+def main(new_data):
+	if re.match(PLAYER,new_data)
+		player(data)
+	else if re.match(OBS,new_data)
+		obs(data)
+	else fail()
+
+
+
+main(new_data)
 	            
 
 
