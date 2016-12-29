@@ -16,7 +16,7 @@ class Grid(object):
         # On simule le fait que le joueur 2 ai joue en dernier
         # On attend ainsi que le joueur 1 joue en premier
         self.lastplayer = 2
-        for _ in range(0, 8):
+        for _ in range(0, 9):
             self.map.append(0)
 
     def place(self, unit, cell):
