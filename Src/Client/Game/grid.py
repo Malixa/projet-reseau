@@ -25,8 +25,13 @@ class Grid(object):
         for _ in range(Grid.NB_CELLS):
             self.cells.append(Grid.EMPTY)
 
-    def play(self, player, cellnum):
+    def can_play(self, player, cellnum):
         if cellnum < 0 or cellnum >= Grid.NB_CELLS or self.cells[cellnum] != Grid.EMPTY:
+            return False
+        return True
+
+    def play(self, player, cellnum):
+        if self.can_play(player, cellnum) is False: 
             return False
         self.cells[cellnum] = player
         return True

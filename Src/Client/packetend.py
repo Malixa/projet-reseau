@@ -1,5 +1,5 @@
-from System import packet as packet
-from Game import game as game
+from .System import packet as packet
+from .Game import game as game
 
 
 class PacketEnd(packet.Packet):

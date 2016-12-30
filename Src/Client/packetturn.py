@@ -1,16 +1,18 @@
-from System import packet as packet
-from Game import game as game
+from .System import packet as packet
+from .Game import game as game
 
-import packetexit as packetexit
-import packetgetstate as packetgetstate
-import packetplace as packetplace
-import packetok as packetok
-import packetend as packetend
+from . import client as client
+
+from . import packetexit as packetexit
+from . import packetgetstate as packetgetstate
+from . import packetplace as packetplace
+from . import packetok as packetok
+from . import packetnop as packetnop
+from . import packetend as packetend
 
 class PacketTurn(packet.Packet):
 
     def run(self, ctx):
-
         # Met a jour l'etat de la grille de jeu
         getstate = packetgetstate.PacketGetState(self.server)
         getstate.send()
@@ -26,17 +28,24 @@ class PacketTurn(packet.Packet):
 
         place = int(place)
 
-        if game.Game.Instance.player.play(place) is True:
-            place = packetplace.PacketPlace(self.server, [place])
-            place.send()
+        if game.Game.Instance.player.can_play(place) is True:
+            pkt = packetplace.PacketPlace(self.server, [place])
+            pkt.send()
 
             pkt = self.server.wait_packet()
             if isinstance(pkt, packetok.PacketOk):
+                game.Game.Instance.player.play(place)
                 # Affichage de la grille une fois que le joueur a joue
                 game.Game.Instance.display_grid()
                 print("C'est au tour de l'autre joueur.")
                 return
             elif isinstance(pkt, packetend.PacketEnd):
+                pkt.run(None)
+                return
+            elif isinstance(pkt, packetnop.PacketNop):
+                self.run(ctx)
+                return
+            else:
                 pkt.run(None)
                 return
 

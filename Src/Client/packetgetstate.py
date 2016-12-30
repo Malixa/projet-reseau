@@ -1,6 +1,6 @@
-from System import packet as packet
+from .System import packet as packet
 
-from Game import game as game
+from .Game import game as game
 
 class PacketGetState(packet.Packet):
 

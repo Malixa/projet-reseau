@@ -38,8 +38,6 @@ class PacketPlace(packet.Packet):
             return
 
         if ply.play(self.cell):
-            # Envoie validation au joueur
-            self.target.send("OK")
             # Test de la fin de la partie
             if game.Game.Instance.won(ply):
                 # Gestion de la fin de partie
@@ -59,6 +57,8 @@ class PacketPlace(packet.Packet):
                 # Lancement de nouvelle partie
                 game.Game.restart()
                 return
+	    # Envoie validation au joueur
+            self.target.send("OK")
             # Changement de tour
             game.Game.Instance.turn()
             pkt = packetturn.PacketTurn(game.Game.Instance.get_current_player().client, None)

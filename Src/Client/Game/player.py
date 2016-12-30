@@ -8,6 +8,19 @@ class Player(object):
         self.discovered = list()
         self.winner = None
 
+
+    def can_play(self, cell): 
+        if cell in self.discovered:
+            return False
+        if self.grid.cells[cell] == self.unit:
+            return False
+        if self.grid.cells[cell] != grid.Grid.EMPTY:
+            self.discovered.append(cell)
+            return False
+        if self.grid.can_play(self.unit, cell) is False:
+            return False
+        return True
+
     def play(self, cell):
         if cell in self.discovered:
             return False
@@ -15,6 +28,8 @@ class Player(object):
             return False
         if self.grid.cells[cell] != grid.Grid.EMPTY:
             self.discovered.append(cell)
+            return False
+        if self.grid.can_play(self.unit, cell) is False:
             return False
         return self.grid.play(self.unit, cell)
 

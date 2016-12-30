@@ -1,133 +1,109 @@
 #!/usr/bin/python3
 
-import socket
-import select
 import sys
-import re
-from . import grid as grid
 
-TURN = re.compile('^TURN')
-OK = re.compile('^OK')
-NOP = re.compile('^NOP')
-STATE = re.compile('^STATE')
-SCORE = re.compile('^SCORE')
-DISCO = re.compile('^DISCONNECTED')
-OFF = re.compile('^SHUTDOWN')
-PLAYER = re.compile('^ROLE player')
-OBS = re.compile('^ROLE observer')
+from .System import server as server
+from .System import packetfactory as packetfactory
 
-CONNECT = "CONNECT"
-GETSTATE = "GETSTATE"
-GETSCORE = "GETSCORE"
-EXIT = "EXIT"
-PLACE = "PLACE"
+from .Game import game as game
 
+from . import packetconnect as packetconnect
+from . import packetrole as packetrole
+from . import packetturn as packetturn
+from . import packetstate as packetstate
+from . import packetok as packetok
+from . import packetnop as packetnop
+from . import packetend as packetend
+from . import packetshutdown as packetshutdown
+from . import packetdisconnected as packetdisconnected
 
-""" 
-on entre l'ip et le port du serveur 
-"""
+class Client(object):
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, 0)
-sock.connect((argv[1],argv[2])) 
+    Running = False
 
-sock.send(CONNECT.encode("utf-8"))
+    @staticmethod
+    def register_proto():
+        """
+            Associe les differents types de paquets pouvant etre recus a leur commande.
+        """
+        packetfactory.PacketFactory.register("ROLE", packetrole.PacketRole)
+        packetfactory.PacketFactory.register("TURN", packetturn.PacketTurn)
+        packetfactory.PacketFactory.register("STATE", packetstate.PacketState)
+        packetfactory.PacketFactory.register("OK", packetok.PacketOk)
+        packetfactory.PacketFactory.register("NOP", packetnop.PacketNop)
+        packetfactory.PacketFactory.register("END", packetend.PacketEnd)
+        packetfactory.PacketFactory.register("SHUTDOWN", packetshutdown.PacketShutdown)
+        packetfactory.PacketFactory.register("DISCONNECTED", packetdisconnected.PacketDisconnected)
 
-data = sock.recv(1024)
-new_data = data.decode("utf-8")
+    @staticmethod
+    def player(player_index):
+        print("Connecte au serveur !")
+        print("En attente d'un adversaire...")
+        game.Game.start(player_index)
+        while game.Game.Instance.won is False and Client.Running is True:
+            try:
+                packet = server.Server.Instance.wait_packet()
+                packet.run(None)
+            except KeyError:
+                #Le paquet envoye n'existe pas pour le client, on exit
+                print("Erreur de communication avec le serveur...")
+            except Exception as e: #Affichage des erreurs
+                print("Une erreur est survenue:")
+                print(str(e))
 
+        #Gestion de la fermeture de la connexion
+        if Client.Running is False:
+            print("La connexion a ete fermee...")
+            exit()
+        # Gestion de la fin de partie
+        if game.Game.Instance.player.winner is True:
+            print("Vous avez gagne !")
+        else:
+            print("Vous avez perdu...")
 
-""" 
-si la connexion échoue 
-"""
+        entry = None
+        while entry != "1" and entry != "2":
+            print("Se connecter pour une nouvelle partie [1: Oui, 2: Non] ?")
+            entry = input()
+        if entry == "1":
+            Client.main()
 
-def fail() :
-    print("Invalid connection (error server / already connected)")
+    @staticmethod
+    def observer():
+        print('observer')
 
+        pass
 
+    @staticmethod
+    def main():
+        server.Server.start()
+        try:
+            if len(sys.argv) > 2:
+                server.Server.Instance.connect(sys.argv[1], int(sys.argv[2]))
+            else:
+                server.Server.Instance.connect(sys.argv[1])
+        except: 
+            print("Impossible d'atteindre le serveur.")
+            return
 
+        # Etablissement de la connexion et determination du role du client
+        connection = packetconnect.PacketConnect(server.Server.Instance)
+        connection.send()
 
-""" 
-si on est un joueur
-"""
-def player (data) :
-    print("Vous êtes un joueur")
-    num = new_data.split(" ")
-    sock.send(GETSTATE.encode("utf-8"))
-    data = sock.recv(1024)
-    new_data = data.decode("utf-8")
-    tab = new_data.split(" ")
-    tab = tab[1].split(",")
-	for i in tab:
-    	grid.place(self,num,i)
-	grid.display(self)
-    data = sock.recv(1024)
-    new_data = data.decode("utf-8")
+        role = packetfactory.PacketFactory.examine_and_create(server.Server.Instance.receive(), server.Server.Instance)
+        role.run(None)
+        if role.is_player():
+            Client.player(role.player_index)
+        elif role.is_observer():
+            Client.observer()
 
-    if re.match(TURN, new_data):
-        place = -1
+    @staticmethod
+    def stop():
+        Client.Running = False
 
-        while re.match(OK, new_data)==false :
+    @staticmethod
+    def start():
+        Client.Running = True
+        Client.register_proto()
+        Client.main()
 
-            while place <0 or place >8
-                print("placer votre pion")
-                place = input()
-
-                if place = "exit" :
-                    sock.send("EXIT")
-
-            sock.send("PLACE ",place)
-            data = sock.recv(1024)
-            new_data = data.decode("utf-8")
-
-            if re.match(OK, new_data) :
-                print("a l'autre joueur")
-
-            else :
-                print("cette case est déjà occupée, replacer votre pion")
- 
-
-
-
-
-"""
-si on est un observateur
-"""             
-def obs(data):
-    print("Vous êtes un observateur")
-    sock.send(GETSCORE.encode("utf-8"))
-    data = sock.recv(1024)
-    new_data = data.decode("utf-8")
-
-    if re.match(SCORE,new_data) :
-        tab = new_data.split(',')
-        print("Voici le score des 2 joueurs : ",tab[0]," / ",tab[1])
-
-        while true :
-            sock.send(GETSTATE.encode("utf-8"))
-            data = sock.recv(1024)
-            new_data = data.decode("utf-8")
-
-            if re.match(STATE,new_data) :
-                tab = new_data.split(',')
-                for i in tab[1..8]:
-    				grid.place(self,0,i)
-					grid.place(self,1,i)
-				grid.display(self)
-            
-            
-        
-            
-def main(new_data):
-	if re.match(PLAYER,new_data)
-		player(data)
-	else if re.match(OBS,new_data)
-		obs(data)
-	else fail()
-
-
-
-main(new_data)
-	            
-
-
-       

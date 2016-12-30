@@ -1,4 +1,4 @@
-from System import packet as packet
+from .System import packet as packet
 
 class PacketPlace(packet.Packet):
 
