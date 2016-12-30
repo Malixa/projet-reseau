@@ -26,11 +26,11 @@ class PacketConnect(packet.Packet):
         if role is None:
             self.target.send("NOP")
             return
-        pkt = packetrole.PacketRole(self.target, [role])
+        pkt = packetrole.PacketRole(self.target, role)
         pkt.send()
 
         # Lancement de la partie si tout est pret, Si le jeu est pret et que l'on a ajoute un joueur
-        if game.Game.Instance.is_ready() and role == roles.Roles.Player:
+        if game.Game.Instance.is_ready() and role[0] == roles.Roles.Player:
             client = game.Game.Instance.get_current_player().client
             pkt = packetturn.PacketTurn(client, None)
             pkt.send()

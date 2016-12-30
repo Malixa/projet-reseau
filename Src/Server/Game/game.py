@@ -111,7 +111,7 @@ class Game(object):
                 # restauration du joueur a son ancien index pour preserver l'ordre de jeu
                 self.players[saved.unit - 1] = saved
                 #print("Restaure en "+str(saved.unit - 1))
-                return roles.Roles.Player
+                return [roles.Roles.Player, saved.unit]
 
         if self.is_full is False:
             ply = player.Player(len(self.players)+1, client)
@@ -120,11 +120,11 @@ class Game(object):
             if len(self.players) >= 2:
                 self.is_full = True
             #print("Game: ajout du joueur "+str(player))
-            return roles.Roles.Player
+            return [roles.Roles.Player, ply.unit]
         else:
             observer = entity.Entity(client)
             self.observers.append(observer)
-            return roles.Roles.Observer
+            return [roles.Roles.Observer, None]
 
     def remove_entity(self, client):
         """

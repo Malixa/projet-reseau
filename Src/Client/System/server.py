@@ -1,4 +1,5 @@
 import socket
+from . import packetfactory as packetfactory
 
 class Server(object):
 
@@ -33,4 +34,14 @@ class Server(object):
     def send(self, data):
         data = data.encode("utf-8")
         self.socket.send(data)
+
+    def wait_packet(self):
+        data = self.receive()
+        if len(data) == 0:
+            data = "SHUTDOWN"
+
+        packet = packetfactory.PacketFactory.examine_and_create(data, self)
+        return packet
+
+        
         

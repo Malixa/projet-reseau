@@ -6,6 +6,7 @@ class Player(object):
         self.unit = unit
         self.grid = grid
         self.discovered = list()
+        self.winner = None
 
     def play(self, cell):
         if cell in self.discovered:
@@ -26,9 +27,10 @@ class Player(object):
             out = "|"
             for col in range(3):
                 if self.grid.cells[row*3+col] == grid.Grid.EMPTY or self.grid.cells[row*3+col] == self.unit:
-                    out = out + grid.Grid.SYMBOLS[self.grid.cells[row*3+col]]
+                    out = out + grid.Grid.SYMBOLS[self.grid.cells[row*3+col]] + "|"
                 elif row*3+col in self.discovered:
-                    out = out + grid.Grid.SYMBOLS[(self.unit+1)%2]
+                    out = out + grid.Grid.SYMBOLS[(self.unit+2)%2+1] + "|"
                 else:
-                    out = out + grid.Grid.SYMBOLS[grid.Grid.EMPTY]
+                    out = out + grid.Grid.SYMBOLS[grid.Grid.EMPTY] + "|"
+            print(out)
 

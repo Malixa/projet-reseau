@@ -5,32 +5,50 @@ import sys
 from System import server as server
 from System import packetfactory as packetfactory
 
+from Game import game as game
+
 import packetconnect as packetconnect
 import packetrole as packetrole
+import packetturn as packetturn
+import packetstate as packetstate
+import packetok as packetok
+import packetend as packetend
+
+
+
+
 
 def register_proto():
     """
         Associe les differents types de paquets pouvant etre recus a leur commande.
     """
     packetfactory.PacketFactory.register("ROLE", packetrole.PacketRole)
-    pass
+    packetfactory.PacketFactory.register("TURN", packetturn.PacketTurn)
+    packetfactory.PacketFactory.register("STATE", packetstate.PacketState)
+    packetfactory.PacketFactory.register("OK", packetok.PacketOk)
+    packetfactory.PacketFactory.register("END", packetend.PacketEnd)
 
-def player():
-    print('player')
-    while True:
-        data = server.Server.Instance.receive()
-        if len(data) == 0:
-            #Force la creation d'un paquet shutdown pour de fermer proprement la cnx
-            data = "SHUTDOWN"
+def player(player_index):
+    game.Game.start(player_index)
+    while game.Game.Instance.won is False:
         try:
-            packet = packetfactory.PacketFactory.examine_and_create(data, server.Server.Instance)
+            packet = server.Server.Instance.wait_packet()
             packet.run(None)
         except KeyError:
             #Le paquet envoye n'existe pas pour le client, on exit
             #TODO: gerer exit
             pass
-        
-    pass
+    if game.Game.Instance.player.winner is True:
+        print("Vous avez gagne !")
+    else:
+        print("Vous avez perdu...")
+
+    entry = None
+    while entry != "1" and entry != "2":
+        print("Se connecter pour une nouvelle partie [1: Oui, 2: Non] ?")
+        entry = input()
+    if entry == "1":
+        main()
 
 def observer():
     print('observer')
@@ -51,7 +69,7 @@ def main():
     role = packetfactory.PacketFactory.examine_and_create(server.Server.Instance.receive(), server.Server.Instance)
     role.run(None)
     if role.is_player():
-        player()
+        player(role.player_index)
     elif role.is_observer():
         observer()
 

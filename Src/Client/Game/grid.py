@@ -31,6 +31,14 @@ class Grid(object):
         self.cells[cellnum] = player
         return True
 
+    def display(self):
+        print("-------------")
+        for row in range(3):
+            out = "|"
+            for col in range(3):
+                out = out + Grid.SYMBOLS[self.cells[row*3+col]] + "|"
+            print(out)
+
 
     def winner(self, player):
         """
