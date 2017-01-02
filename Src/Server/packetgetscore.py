@@ -2,9 +2,8 @@
     Ce module contient:
         La classe PacketGetScore: Paquet gerant une demande de score
 """
-
-import System.packet as packet
-import packetscore
+from .System import packet as packet
+from . import packetscore
 
 class PacketGetScore(packet.Packet):
     """

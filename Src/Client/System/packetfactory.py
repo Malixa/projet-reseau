@@ -26,6 +26,7 @@ class PacketFactory(object):
             en fonction de la valeur de command.
             Retourne une instance de paquet.
         """
+        print(command)
         args = command.split(" ")
         command = args[0]
         args.pop(0) # on supprime la commande de la liste d'args

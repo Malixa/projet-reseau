@@ -3,9 +3,8 @@
         La classe PacketRole:  indique a un participant son role dans la partie
 """
 
-from Game import roles as roles
-
-import System.packet as packet
+from .Game import roles as roles
+from .System import packet as packet
 
 
 class PacketRole(packet.Packet):

@@ -2,9 +2,8 @@
     Ce module contient:
         La classe PacketGetState: Paquet gerant une demande de l'etat de la partie
 """
-
-import System.packet as packet
-import packetstate
+from .System import packet as packet
+from . import packetstate
 
 class PacketGetState(packet.Packet):
     """

@@ -3,9 +3,8 @@
         La classe PacketScore: Paquet communiquant les scores
 """
 
-
-import System.packet as packet
-import Game.game as game
+from .System import packet as packet
+from .Game import game as game
 
 class PacketScore(packet.Packet):
     """

@@ -2,8 +2,7 @@
     Ce module contient:
         La classe PacketEnd: indique aux joueurs la fin d'une partie
 """
-
-import System.packet as packet
+from .System import packet as packet
 
 class PacketEnd(packet.Packet):
     """

@@ -11,5 +11,9 @@ class PacketState(packet.Packet):
                 data.append(int(index))
         game.Game.Instance.update_grid(data)
         game.Game.Instance.display_grid()
-
+        if game.Game.Instance.mode == game.Game.MODE_OBSERVER:
+            symb = game.Game.Instance.check_for_winner()
+            if symb is None:
+                return
+            game.Game.Instance.won = True
 

@@ -3,14 +3,13 @@
         La classe PacketPlace: Paquet gerant une demande de placement sur la grille
 """
 
-import System.packet as packet
-import Game.game as game
+from .System import packet as packet
+from .Game import game as game
+from .Game import ends as ends
 
-import Game.ends as ends
-
-import packetturn
-import packetstate
-import packetend
+from . import packetturn
+from . import packetstate
+from . import packetend
 
 class PacketPlace(packet.Packet):
     """
@@ -50,9 +49,9 @@ class PacketPlace(packet.Packet):
                 # Envoi de loose au perdant
                 pkt = packetend.PacketEnd(ply.client, [ends.Ends.Loose])
                 pkt.send()
-                # Envoi de end a tout les observers
+                # Envoi de state a tout les observers, ils determinent d'eux memes la fin de la partie
                 for observer in game.Game.Instance.observers:
-                    pkt = packetend.PacketEnd(observer.client, None)
+                    pkt = packetstate.PacketState(observer.client, None)
                     pkt.send()
                 # Lancement de nouvelle partie
                 game.Game.restart()

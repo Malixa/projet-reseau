@@ -37,7 +37,7 @@ class Client(object):
 
     @staticmethod
     def player(player_index):
-        print("Connecte au serveur !")
+        print("Connecte au serveur en tant que joueur !")
         print("En attente d'un adversaire...")
         game.Game.start(player_index)
         while game.Game.Instance.won is False and Client.Running is True:
@@ -70,8 +70,34 @@ class Client(object):
 
     @staticmethod
     def observer():
-        print('observer')
+        print("Connecte au serveur en tant qu'observateur' !")
+        print("En attente des joueurs...")
+        game.Game.start(0) #nouvelle partie sans joueur
+        while game.Game.Instance.won is False and Client.Running is True:
+            try:
+                packet = server.Server.Instance.wait_packet()
+                packet.run(None)
+            except KeyError:
+                #Le paquet envoye n'existe pas pour le client, on exit
+                print("Erreur de communication avec le serveur...")
+            """except Exception as e: #Affichage des erreurs
+                print("Une erreur est survenue:")
+                print(str(e))"""
+        #Gestion de la fermeture de la connexion
+        if Client.Running is False:
+            print("La connexion a ete fermee...")
+            exit()
+        # Gestion de la fin de partie
+        symb = game.Game.Instance.check_for_winner()
+        print("Le joueur "+symb+" a gagne la partie !")
 
+
+        entry = None
+        while entry != "1" and entry != "2":
+            print("Se connecter pour une nouvelle partie [1: Oui, 2: Non] ?")
+            entry = input()
+        if entry == "1":
+            Client.main()
         pass
 
     @staticmethod

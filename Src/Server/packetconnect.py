@@ -3,13 +3,13 @@
         La classe PacketConnect: Paquet gerant une nouvelle connexion
 """
 
-import System.packet as packet
+from .System import packet as packet
 
-import Game.game as game
-import Game.roles as roles
+from .Game import game as game
+from .Game import roles as roles
 
-import packetturn
-import packetrole
+from . import packetturn
+from . import packetrole
 
 
 class PacketConnect(packet.Packet):

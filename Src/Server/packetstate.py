@@ -3,8 +3,8 @@
         La classe PacketConnect: Paquet communiquant l'etat du jeu
 """
 
-import System.packet as packet
-import Game.game as game
+from .System import packet as packet
+from .Game import game as game
 
 class PacketState(packet.Packet):
     """

@@ -2,8 +2,7 @@
     Ce module contient:
         La classe PacketDisconnect: Paquet communiquant une deconnexion
 """
-
-import System.packet as packet
+from .System import packet as packet
 
 class PacketDisconnected(packet.Packet):
     """

@@ -2,12 +2,11 @@
     Ce module contient:
         La classe PacketExit: Paquet gerant la deconnexion d'un client
 """
+from .System import packet as packet
+from .Game import game as game
 
-import System.packet as packet
-import Game.game as game
-
-import packetdisconnected
-import packetend
+from . import packetdisconnected
+from . import packetend
 
 class PacketExit(packet.Packet):
     """
