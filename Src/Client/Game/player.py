@@ -2,11 +2,12 @@ from . import grid as grid
 
 class Player(object):
 
-    def __init__(self, unit, grid):
+    def __init__(self, unit, gri):
         self.unit = unit
-        self.grid = grid
+        self.grid = gri
         self.discovered = list()
         self.winner = None
+        print("Vous etes le joueur "+str(unit)+". Symbole: "+grid.Grid.SYMBOLS[self.unit])
 
 
     def can_play(self, cell): 
@@ -14,20 +15,17 @@ class Player(object):
             return False
         if self.grid.cells[cell] == self.unit:
             return False
-        if self.grid.cells[cell] != grid.Grid.EMPTY:
-            self.discovered.append(cell)
-            return False
         if self.grid.can_play(self.unit, cell) is False:
             return False
         return True
+
+    def discover(self, cell):
+        self.discovered.append(cell)
 
     def play(self, cell):
         if cell in self.discovered:
             return False
         if self.grid.cells[cell] == self.unit:
-            return False
-        if self.grid.cells[cell] != grid.Grid.EMPTY:
-            self.discovered.append(cell)
             return False
         if self.grid.can_play(self.unit, cell) is False:
             return False
@@ -37,7 +35,6 @@ class Player(object):
         return self.grid.winner(self.unit)
 
     def display_grid(self):
-        print("-------------")
         for row in range(3):
             out = "|"
             for col in range(3):

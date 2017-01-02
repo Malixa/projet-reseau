@@ -27,12 +27,19 @@ class Grid(object):
         """
         if cell < 0 or cell > 8:
             return False
-        if self.map[cell] == 0 and self.lastplayer != unit:
+        if self.map[cell] == 0:
             self.map[cell] = unit
             self.history.append(str(cell))
             self.lastplayer = unit
             return True
         return False
+
+    def abort_turn(self, unit):
+        """
+            Indique a la grille que le joueur unit a passe son tour
+        """
+        self.lastplayer = unit
+        self.history.append("-1")
 
     def won(self, unit):
         """

@@ -21,8 +21,17 @@ class Networker(object):
         """
             Initialise une nouvelle instance de classe
         """
-        Networker.Instance = None
+        Networker.stop()
         Networker.Instance = Networker()
+
+    @staticmethod
+    def stop():
+        """
+            Arrete l'instance de classe
+        """
+        if Networker.Instance is not None:
+            Networker.Instance.end()
+        Networker.Instance = None
 
     def __init__(self):
 
@@ -36,6 +45,14 @@ class Networker(object):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.socket.bind(('', 6666))
+
+    def end(self):
+        """
+            Libere les ressources du Networker
+        """
+        self.send_all("SHUTDOWN") #On indique a tout le monde qu'on ferme
+        self.socket.shutdown(socket.SHUT_RDWR)
+        self.socket.close()
 
 
     def remove_client(self, client):
@@ -74,10 +91,13 @@ class Networker(object):
         changes = select.select(changes, list(), list())[0]
         for change in changes:
             if change == self.socket:
-                data = change.accept()
-                # Creation d'un nouveau client
-                cli = Client(self, data[0], data[1])
-                self.clients.append(cli)
+                try:
+                    data = change.accept()
+                    # Creation d'un nouveau client
+                    cli = Client(self, data[0], data[1])
+                    self.clients.append(cli)
+                except Exception:
+                    return None
                 #ret.append(client)
             else:
                 ret.append(change)

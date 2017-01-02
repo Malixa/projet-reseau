@@ -16,7 +16,18 @@ Le projet doit se concrétiser sous la forme d'un logiciel python présentant de
 | Joueur | Client disposant de la possibilité de jouer au jeu du morpion sur un serveur (2 joueurs par serveur). |
 | Observateur | Client ne pouvant jouer au jeu du morpion sur un serveur. A la place, il reçoit l'état de la partie à chaque fois qu'un joueur joue un coup (une infinité d'observateurs par serveur). |
 
-## III. Description des modes de fonctionnement 
+## III. Règles de jeu
+
+Chaque joueur joue tour à tour. Durant son tour de jeu, un client peut choisir de poser un jeton sur la grille ou de quitter la partie en entrant 'exit' dans l'invité de commande.   
+Si le joueur pose un pion:
+* Si le joueur peut jouer sur la case, alors un pion sera placé et se sera au tour du joueur suivant. 
+* Sinon la case n'est pas disponible car l'autre joueur l'occupe deja.  Dans ce cas, le joueur découvre le pion adverse qui devient visible sur sa grille, et le joueur passe son tour. 
+
+Si le joueur quitte le jeu (en tapant exit, ou pour toute autre raison), un compte-à-rebours est lancé. Le joueur a trois minute pour se reconnecter sinon, le serveur sera relancé afin de permettre à d'autres clients de jouer. 
+
+Si un joueur arrive a placer 3 pions en ligne, colonne ou diagonale, il est déclaré vainqueur. L'autre joueur est donc perdant. Une fois la victoire annoncée, les joueurs et observateurs peuvent essayer de se reconnecter au serveur. Premier connecté, premier servit, les deux premiers clients connectés seront joueurs.
+
+## IV. Description des modes de fonctionnement 
 
 ### Mode Serveur 
 

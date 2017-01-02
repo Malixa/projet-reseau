@@ -17,6 +17,12 @@ class Player(entity.Entity):
         self.unit = unit
         self.score = 0
 
+    def abort_turn(self):
+        """
+            Le joueur passe son tour
+        """
+        game.Game.Instance.grid.abort_turn(self.unit)
+
     def play(self, cell):
         """
             Permet au joueur de jouer un coup

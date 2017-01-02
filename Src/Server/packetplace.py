@@ -10,6 +10,7 @@ from .Game import ends as ends
 from . import packetturn
 from . import packetstate
 from . import packetend
+from . import packetpass
 
 class PacketPlace(packet.Packet):
     """
@@ -56,7 +57,7 @@ class PacketPlace(packet.Packet):
                 # Lancement de nouvelle partie
                 game.Game.restart()
                 return
-	    # Envoie validation au joueur
+	        # Envoie validation au joueur
             self.target.send("OK")
             # Changement de tour
             game.Game.Instance.turn()
@@ -66,5 +67,14 @@ class PacketPlace(packet.Packet):
                 pkt = packetstate.PacketState(observer.client, None)
                 pkt.send()
 
-        else:
-            self.target.send("NOP")
+        else: #La case n'a pas pu etre jouee, le joueur passe son tour
+            pkt = packetpass.PacketPass(self.target, None)
+            pkt.send()
+            # Changement de tour
+            ply.abort_turn()
+            game.Game.Instance.turn()
+            pkt = packetturn.PacketTurn(game.Game.Instance.get_current_player().client, None)
+            pkt.send()
+            for observer in game.Game.Instance.observers:
+                pkt = packetstate.PacketState(observer.client, None)
+                pkt.send()

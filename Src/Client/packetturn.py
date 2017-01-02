@@ -9,10 +9,12 @@ from . import packetplace as packetplace
 from . import packetok as packetok
 from . import packetnop as packetnop
 from . import packetend as packetend
+from . import packetpass as packetpass
 
 class PacketTurn(packet.Packet):
 
     def run(self, ctx):
+        print("=====================NOUVEAU TOUR")
         # Met a jour l'etat de la grille de jeu
         getstate = packetgetstate.PacketGetState(self.server)
         getstate.send()
@@ -20,11 +22,14 @@ class PacketTurn(packet.Packet):
         # Permet au joueur de jouer
         place = -1
         print("Entrez l'indice de la case que vous souhaitez jouer [0-8]")
+        print("Ou quittez la partie en entrant 'EXIT'")
+
         place = input()
 
-        if place.upper() == "EXIT":
+        if "EXIT" in place.upper():
             exi = packetexit.PacketExit(self.server)
             exi.send()
+            exit()
 
         place = int(place)
 
@@ -38,18 +43,27 @@ class PacketTurn(packet.Packet):
                 # Affichage de la grille une fois que le joueur a joue
                 game.Game.Instance.display_grid()
                 print("C'est au tour de l'autre joueur.")
+                print("=====================FIN TOUR")
                 return
-            elif isinstance(pkt, packetend.PacketEnd):
+            elif isinstance(pkt, packetend.PacketEnd): #la partie est finie
+                game.Game.Instance.display_grid()
+                print("=====================FIN TOUR")
                 pkt.run(None)
                 return
-            elif isinstance(pkt, packetnop.PacketNop):
-                self.run(ctx)
+            elif isinstance(pkt, packetpass.PacketPass): #On recoit pass, la case ne pouvait etre joue
+                game.Game.Instance.player.discover(place)
+                game.Game.Instance.display_grid()
+                print("La case est deja occupee. Vous perdez la main.")
+                print("=====================FIN TOUR")
                 return
+            elif isinstance(pkt, packetnop.PacketNop): #On recoit nop, on recommence
+                pkt.run(None)
             else:
-                pkt.run(None)
+                pkt.run(None) #Autre paquet (deconnexion etc...)
                 return
 
         print("Impossible de jouer cette case.")
+        print("--------------------")
         self.run(ctx) #On redemande au joueur de placer
         return
 

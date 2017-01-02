@@ -8,7 +8,8 @@ class PacketDisconnected(packet.Packet):
         self.other_ip = args[0]
 
     def run(self, ctx):
-        print("Le joueur possedant l'adresse ip " + self.other_ip + " s'est deconnecte.")
+        print("Le joueur possedant l'adresse ip " + str(self.other_ip) + " s'est deconnecte.")
         print("En attente de sa reconnexion...")
+        print("S'il n'est pas de retour dans 3 minutes, le serveur sera relance.")
 
 

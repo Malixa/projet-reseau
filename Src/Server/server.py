@@ -2,6 +2,8 @@
     Point d'entree du programme de serveur
 """
 
+from threading import Timer
+import time
 
 from .System import networker as networker
 from .System import packetfactory as packetfactory
@@ -15,6 +17,8 @@ from . import packetgetstate
 from . import packetgetscore
 
 class Server(object):
+
+    Timer = None
 
     @staticmethod
     def register_proto():
@@ -56,6 +60,18 @@ class Server(object):
                     client.send("NOP")
 
     @staticmethod
+    def set_timer(amount, callback):
+        Server.Timer = Timer(amount, callback)
+        Server.Timer.start()
+
+    @staticmethod
+    def stop_timer():
+        if Server.Timer is not None:
+            Server.Timer.cancel()
+        Server.Timer = None
+
+    @staticmethod
     def start():
+        Server.stop_timer()
         Server.register_proto()
         Server.main()

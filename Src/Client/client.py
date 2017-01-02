@@ -16,6 +16,7 @@ from . import packetnop as packetnop
 from . import packetend as packetend
 from . import packetshutdown as packetshutdown
 from . import packetdisconnected as packetdisconnected
+from . import packetpass as packetpass
 
 class Client(object):
 
@@ -34,9 +35,11 @@ class Client(object):
         packetfactory.PacketFactory.register("END", packetend.PacketEnd)
         packetfactory.PacketFactory.register("SHUTDOWN", packetshutdown.PacketShutdown)
         packetfactory.PacketFactory.register("DISCONNECTED", packetdisconnected.PacketDisconnected)
+        packetfactory.PacketFactory.register("PASS", packetpass.PacketPass)
 
     @staticmethod
     def player(player_index):
+        print("####################")
         print("Connecte au serveur en tant que joueur !")
         print("En attente d'un adversaire...")
         game.Game.start(player_index)
@@ -70,7 +73,8 @@ class Client(object):
 
     @staticmethod
     def observer():
-        print("Connecte au serveur en tant qu'observateur' !")
+        print("####################")
+        print("Connecte au serveur en tant qu'observateur !")
         print("En attente des joueurs...")
         game.Game.start(0) #nouvelle partie sans joueur
         while game.Game.Instance.won is False and Client.Running is True:

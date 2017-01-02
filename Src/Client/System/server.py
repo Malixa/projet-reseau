@@ -27,11 +27,16 @@ class Server(object):
         self.socket.connect((address, port))
 
     def receive(self):
-        data = self.socket.recv(1024)
+        data = self.socket.recv(50)
         data = data.decode("utf-8") # COnversion des bytes en string
+        data = data.replace("#", "") #Suppression des caracteres de remplissage
         return data.replace("\n", "") #Suppression d'un eventuel retour a la ligne
 
     def send(self, data):
+        #On ajoute des caracteres blancs pour remplir le buffer
+        #et eviter la collision de deux paquets
+        while len(data) < 50:
+            data = data + "#"
         data = data.encode("utf-8")
         self.socket.send(data)
 

@@ -27,10 +27,11 @@ class Game(object):
         if is_player != 0:
             self.player = player.Player(is_player, self.grid)
             self.mode = Game.MODE_PLAYER
-        print(self.mode)
-
+            
     def update_grid(self, data):
         for i in range(len(data)):
+            if data[i] == -1:
+                continue
             player_index = (i % 2) + 1
             self.grid.cells[data[i]] = player_index
 

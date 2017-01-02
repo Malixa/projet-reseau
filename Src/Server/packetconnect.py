@@ -8,6 +8,7 @@ from .System import packet as packet
 from .Game import game as game
 from .Game import roles as roles
 
+from . import server
 from . import packetturn
 from . import packetrole
 
@@ -31,6 +32,9 @@ class PacketConnect(packet.Packet):
 
         # Lancement de la partie si tout est pret, Si le jeu est pret et que l'on a ajoute un joueur
         if game.Game.Instance.is_ready() and role[0] == roles.Roles.Player:
+            # Il se peut qu'un timer ai ete lance
+            # On l'arrete si c'est le cas
+            server.Server.stop_timer()
             client = game.Game.Instance.get_current_player().client
             pkt = packetturn.PacketTurn(client, None)
             pkt.send()
