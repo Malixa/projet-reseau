@@ -50,9 +50,6 @@ class Server(object):
         self.socket.send(data)
 
     def wait_packet(self):
-		""" 
-			Permet l'attente des données du serveur 
-		"""
         data = self.receive()
         if len(data) == 0:
             data = "SHUTDOWN"
