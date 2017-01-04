@@ -1,3 +1,9 @@
+"""
+	Ce module contient:
+		La classe packetturn : gère l'affectation du tours du client
+
+"""
+
 from .System import packet as packet
 from .Game import game as game
 
@@ -13,6 +19,7 @@ from . import packetpass as packetpass
 
 class PacketTurn(packet.Packet):
 
+#Met en place la routine de jeu
     def run(self, ctx):
         print("=====================NOUVEAU TOUR")
         # Met a jour l'etat de la grille de jeu

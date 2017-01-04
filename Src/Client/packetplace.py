@@ -1,7 +1,14 @@
+"""
+	Ce module contient:
+		La classe packetplace : gère l'implémentation de la fonctione place permettant le placement des pions sur la grille
+
+"""
+
 from .System import packet as packet
 
 class PacketPlace(packet.Packet):
 
+#Permet l'envoi au serveur de la commande place plus ses arguments
     def send(self):
         place = self.args[0]
         data = "PLACE "+str(place)
