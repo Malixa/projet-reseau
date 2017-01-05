@@ -1,5 +1,6 @@
 """
-	
+	Ce module contient :
+		La classe client : 
 """
 #!/usr/bin/python3
 
@@ -22,6 +23,10 @@ from . import packetdisconnected as packetdisconnected
 from . import packetpass as packetpass
 
 class Client(object):
+
+	"""
+		Représente le client
+	"""
 
     Running = False
 
@@ -145,14 +150,14 @@ class Client(object):
     @staticmethod
     def stop():
 		"""
-			
+			Cause l'arret du client
 		"""
         Client.Running = False
 
     @staticmethod
     def start():
 		"""
-			
+			Permet le lancement de la partie
 		"""
         Client.Running = True
         Client.register_proto()

@@ -9,5 +9,8 @@ from .System import packet as packet
 
 class PacketOk(packet.Packet):
 
+	"""
+		La commande ok permet l'acquittement du serveur a une commande du client
+	"""
     def run(self, ctx):
         pass

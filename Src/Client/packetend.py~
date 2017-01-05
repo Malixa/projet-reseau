@@ -16,6 +16,9 @@ class PacketEnd(packet.Packet):
 
 
     def run(self, ctx):
+		"""
+			Définie le client gagnant
+		"""
         game.Game.Instance.won = True
         if self.state == "win":
             game.Game.Instance.player.winner = True

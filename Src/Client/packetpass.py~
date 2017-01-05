@@ -1,6 +1,6 @@
 """
 	Ce module contient:
-		La classe packetpass : gère les cas où il ne se passe rien
+		La classe packetpass : signale au client qu'il passe son tour
 
 """
 

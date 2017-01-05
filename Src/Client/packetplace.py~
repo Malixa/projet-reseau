@@ -8,11 +8,14 @@ from .System import packet as packet
 
 class PacketPlace(packet.Packet):
 
-"""
-Permet l'envoi au serveur de la commande place plus ses arguments
-"""
-
+	"""
+		La commande place permet au joueur de demander le placement d'un pion
+		sur la grille en une case 
+	"""
     def send(self):
+		"""
+			Permet l'envoi au serveur de la commande place plus ses arguments
+		"""
         place = self.args[0]
         data = "PLACE "+str(place)
         self.server.send(data)

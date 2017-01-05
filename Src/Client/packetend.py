@@ -10,6 +10,10 @@ from .Game import game as game
 
 class PacketEnd(packet.Packet):
 
+	"""
+		La commande end informe le joueur de sa victoire/défaite ou rien si le client
+		est une observateur
+	"""
     def __init__(self, server, args):
         super(PacketEnd, self).__init__(server, args)
         self.state = self.args[0]

@@ -1,8 +1,15 @@
+"""
+	Ce module contient :
+		La classe serveur : gère toute la connexion et l'échange avec le serveur
+"""
+
 import socket
 from . import packetfactory as packetfactory
 
 class Server(object):
-
+	"""
+		
+	"""
 
     Instance = None
 
@@ -50,6 +57,9 @@ class Server(object):
         self.socket.send(data)
 
     def wait_packet(self):
+		""" 
+			Permet l'attente des données du serveur 
+		"""
         data = self.receive()
         if len(data) == 0:
             data = "SHUTDOWN"

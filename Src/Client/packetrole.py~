@@ -12,9 +12,6 @@ class PacketRole(packet.Packet):
     ROLES = ['player', 'observer']
 
     def __init__(self, server, args):
-		"""
-			initialisation du paquet : création des propriétés role et player_index
-		"""
         super(PacketRole, self).__init__(server, args)
         self.role = None
         self.player_index = None

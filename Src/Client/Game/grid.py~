@@ -4,6 +4,9 @@
 """
 
 
+
+
+
 class Grid(object):
     """
         Represente la grille de jeu.
