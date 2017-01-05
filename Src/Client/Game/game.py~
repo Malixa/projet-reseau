@@ -29,9 +29,6 @@ class Game(object):
             self.mode = Game.MODE_PLAYER
             
     def update_grid(self, data):
-	"""
-		Met à jour l'état de la grille
-	"""
         for i in range(len(data)):
             if data[i] == -1:
                 continue
@@ -55,9 +52,6 @@ class Game(object):
 
 
     def display_grid(self):
-		"""
-			Permet l'affichage de la grille différent selon le client
-		"""
         if self.mode == Game.MODE_OBSERVER:
             self.grid.display()
         else:

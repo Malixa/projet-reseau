@@ -42,10 +42,6 @@ class Client(object):
 
     @staticmethod
     def player(player_index):
-		"""
-			Lance une partie en tant que joueur et gère la routine de jeu
-		"""
-
         print("####################")
         print("Connecte au serveur en tant que joueur !")
         print("En attente d'un adversaire...")
@@ -80,10 +76,6 @@ class Client(object):
 
     @staticmethod
     def observer():
-		"""
-			Lance une partie en tant qu'observateur et gère la routine d'observation
-		"""
-
         print("####################")
         print("Connecte au serveur en tant qu'observateur !")
         print("En attente des joueurs...")
@@ -117,10 +109,6 @@ class Client(object):
 
     @staticmethod
     def main():
-		"""
-			Connecte le client au serveur et définie son rôle
-		"""
-
         server.Server.start()
         try:
             if len(sys.argv) > 2:
@@ -144,16 +132,10 @@ class Client(object):
 
     @staticmethod
     def stop():
-		"""
-			
-		"""
         Client.Running = False
 
     @staticmethod
     def start():
-		"""
-			
-		"""
         Client.Running = True
         Client.register_proto()
         Client.main()

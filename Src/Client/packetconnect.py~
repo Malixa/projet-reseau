@@ -8,9 +8,10 @@ from .System import packet as packet
 
 class PacketConnect(packet.Packet):
 
+"""
+envoie de la commande connect au serveur
+"""
+
     def send(self):
-	"""
-		envoie de la commande connect au serveur
-	"""
         data = "CONNECT"
         self.server.send(data)

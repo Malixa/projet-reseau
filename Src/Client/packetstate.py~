@@ -10,10 +10,11 @@ from .Game import game as game
 
 class PacketState(packet.Packet):
 
+"""
+Met en place la grille de jeu et affiche les coups joués
+"""
+
     def run(self, ctx):
-		"""
-			Met en place la grille de jeu et affiche les coups joués
-		"""
         data = list()
         for index in self.args[0].split(','):
 		#permet de séparer la liste des coups joués et d'afficher la grille
