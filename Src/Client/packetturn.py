@@ -42,8 +42,12 @@ class PacketTurn(packet.Packet):
             exi.send()
             exit()
 
-        place = int(place)
-
+        try:
+            place = int(place)
+        except:
+            self.run(ctx)
+            return
+            
         if game.Game.Instance.player.can_play(place) is True:
             pkt = packetplace.PacketPlace(self.server, [place])
             pkt.send()
