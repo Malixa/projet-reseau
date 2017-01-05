@@ -10,11 +10,10 @@ from .Game import game as game
 
 class PacketGetState(packet.Packet):
 
-"""
-Envoi de la commande GETSTATE au serveur
-"""
-
     def send(self):
+		"""
+			Envoi de la commande GETSTATE au serveur
+		"""
         data = "GETSTATE"
         self.server.send(data)
 

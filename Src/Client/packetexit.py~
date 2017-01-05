@@ -7,10 +7,9 @@ from .System import packet as packet
 
 class PacketExit(packet.Packet):
 
-"""
-Envoi de la commande exit au serveur
-"""
-
     def send(self):
+		"""
+			Envoi de la commande exit au serveur
+		"""
         data = "EXIT"
         self.server.send(data)

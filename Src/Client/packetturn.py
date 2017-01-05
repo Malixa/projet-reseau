@@ -19,6 +19,10 @@ from . import packetpass as packetpass
 
 class PacketTurn(packet.Packet):
 
+	"""
+		La commande turn averti le client que c'est a son tours de jouer
+	"""
+
     def run(self, ctx):
 		"""
 			Met en place la routine de jeu

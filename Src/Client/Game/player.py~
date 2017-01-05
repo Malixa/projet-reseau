@@ -7,13 +7,13 @@ from . import grid as grid
 class Player(object):
 	"""
 		Représente le joueur.
+		Comprends 
 	"""
 
     def __init__(self, unit, gri):
         self.unit = unit
         self.grid = gri
         self.discovered = list()
-		#liste de découverte des coups adverses
         self.winner = None
         print("Vous etes le joueur "+str(unit)+". Symbole: "+grid.Grid.SYMBOLS[self.unit])
 

@@ -1,6 +1,6 @@
 """
     Ce module contient:
-    	La classe PacketFactory: Instancie des paquets
+    La classe PacketFactory: Instancie des paquets
 """
 
 class PacketFactory(object):

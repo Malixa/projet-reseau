@@ -19,11 +19,10 @@ from . import packetpass as packetpass
 
 class PacketTurn(packet.Packet):
 
-"""
-Met en place la routine de jeu
-"""
-
     def run(self, ctx):
+		"""
+			Met en place la routine de jeu
+		"""
         print("=====================NOUVEAU TOUR")
         # Met a jour l'etat de la grille de jeu
         getstate = packetgetstate.PacketGetState(self.server)

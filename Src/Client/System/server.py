@@ -1,8 +1,15 @@
+"""
+	Ce module contient :
+		La classe serveur : gère toute la connexion et l'échange avec le serveur
+"""
+
 import socket
 from . import packetfactory as packetfactory
 
 class Server(object):
-
+	"""
+		Le serveur représente le serveur de jeu côté client
+	"""
 
     Instance = None
 

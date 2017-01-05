@@ -1,6 +1,7 @@
 """
 	Ce module contient:
-		La classe packetdisconnect : gère la déconnection accidentelle du client
+		La classe packetdisconnect : gère la déconnection accidentelle 
+									 ou volontaire du client
 
 """
 
@@ -9,6 +10,10 @@ from .System import packet as packet
 
 class PacketDisconnected(packet.Packet):
 
+	"""
+		La commande disconnected informe les clients de la déconnection d'un joueur
+		et renvoi l'ip de celui-ci
+	"""
     def __init__(self, server, args):
         super(PacketDisconnected, self).__init__(server, args)
         self.other_ip = args[0]

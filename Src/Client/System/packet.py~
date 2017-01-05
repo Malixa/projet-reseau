@@ -1,6 +1,6 @@
 """
-    Ce module contient :
-    	La classe Packet : realise une action sur le programme en fonction de donnees recues via socket
+    Ce module contient:
+    La classe Packet: realise une action sur le programme en fonction de donnees recues via socket
 """
 
 class Packet(object):

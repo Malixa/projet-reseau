@@ -1,8 +1,16 @@
+"""
+	Ce module contient :
+		La classe game : met en place la routine de jeu
+"""
+
 from . import player as player
 from . import grid as grid
 
 
 class Game(object):
+	"""
+		Représente le jeu et son déroulement
+	"""
 
     Instance = None
 
@@ -29,9 +37,9 @@ class Game(object):
             self.mode = Game.MODE_PLAYER
             
     def update_grid(self, data):
-	"""
-		Met à jour l'état de la grille
-	"""
+		"""
+			Met à jour l'état de la grille
+		"""
         for i in range(len(data)):
             if data[i] == -1:
                 continue

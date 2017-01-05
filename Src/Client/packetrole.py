@@ -8,7 +8,10 @@ from .System import packet as packet
 
 class PacketRole(packet.Packet):
 
-
+	"""
+		La commande role indique au client s'il est joueur ou observateur
+		Indique au joueur son numéro de joueur
+	"""
     ROLES = ['player', 'observer']
 
     def __init__(self, server, args):

@@ -10,6 +10,11 @@ from .Game import game as game
 
 class PacketState(packet.Packet):
 
+"""
+	La commande state renvoi la liste des coups joués au client permettant
+	l'affichage de la grille
+"""
+
     def run(self, ctx):
 		"""
 			Met en place la grille de jeu et affiche les coups joués
