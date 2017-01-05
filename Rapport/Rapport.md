@@ -64,7 +64,7 @@ Si le joueur quitte le jeu (en tapant exit, ou pour toute autre raison), un comp
 |--|--|
 | Robot jouant aléatoirement des coups | Etant donné l'architecture de notre projet, nous avons jugé que la modification du code pour permettre l'ajout d'un robot aurait excessivement complexifié le code en générant des exceptions de traitement (cas particuliers). | 
 
-## V. Informations techniques
+## V. Informations techniques et organisationnelles
 
 ### V.II Le partage des tâches et organisation de travail
 
@@ -99,6 +99,8 @@ Concrétement, dans l'implémentation du code source, chacune des commandes ci-d
 | ROLE | observer ou player | observer si observateur, player si joueur. Indique au client son role |
 | END | win ou loose ou rien | win si le joueur a gagné, loose sinon, ou rien si envoye a un observer. Indique la fin d'une partie | 
 
+(A noter que dans le produit fini, Score n'est pas implémenté coté client).
+
 ### V.II Organisation générale du code 
 
 Coté client et serveur, le code est organisé en trois grand sous-ensembles:
@@ -111,15 +113,41 @@ Coté client et serveur, le code est organisé en trois grand sous-ensembles:
 
 Le module Game contient l'ensemble du code gérant la logique de jeu. Le module System contient les ressources de base nécessaire au bon fonctionnement du code en réseau. L'ensemble des fichier 'packet' correspondent chacun à une commande du protocole. Une routine principale attend de manière indéfinie des données depuis le serveur ou le client. Lorsque la commande qui leur est associée est reçue par le logiciel, une nouvel instance du paquet correspondant est générée, c'est ensuite cette dernière qui va prendre en main le déroulement de la logique logiciel. Une fois sa tâche terminée, le paquet rend la main à la routine principale du logiciel qui va attendre une nouvelle réception de paquet et ainsi de suite. 
 
-D'une manière générale, il existe deux types de paquets. Les paquets sensés être reçus (disposant d'une implémentation de la méthode run), qui prennent la main sur la routine principale, et les paquets sensés être envoyés (disposant d'une implémentation de la méthode send), qui ne font rien d'autre que d'envoyer leur commande textuelle sur le réseau.
+D'une manière générale, il existe deux types de paquets. Les paquets sensés être reçus (disposant d'une implémentation de la méthode run), qui prennent la main sur la routine principale, et les paquets sensés être envoyés (disposant d'une implémentation de la méthode send), qui ne font rien d'autre que d'envoyer leur commande textuelle sur le réseau. Un paquet reçu par le serveur est un paquet envoyé par le client et inversement.
+
+Ce choix de conception a été réalisé afin de permettre de modifier simplement le programme à l'avenir. En effet, pour ajouter n'importe quelle fonction au serveur ou au client, il suffit de créer une nouvelle classe paquet héritant de 'Packet', de l'ajouter à la méthode register_proto de client.py ou serveur.py (s'il s'agit d'un paquet sensé être reçu) et de n'ajouter qu'une ou deux lignes de code aux emplacement nécessaires. Ainsi même si la création de classe n'est pas suffisante et qu'il est tout de même nécessaire de modifier le code, on évite le coté usine à gaz d'une conception plus linéaire.
 
 #### V.II.a UML du code coté serveur 
 
 <center>
 
-![UML serveur](http://i.imgur.com/accLQqH.png)
+![UML serveur](http://i.imgur.com/hP34b4R.png)
 
+(Vous pouvez retrouver le schéma UML [ici](http://i.imgur.com/hP34b4R.png))
 </center>
+
+#### V.II.b UML du code coté client
+
+<center>
+
+![UML client](http://i.imgur.com/TDooaNa.png)
+
+(Vous pouvez retrouver le schéma UML [ici](http://i.imgur.com/TDooaNa.png))
+</center>
+
+### V.III Procédure qualité 
+
+Afin de produire un code de la meilleure qualité possible un certain nombre de mesures ont été prises:
+
+* Attention particulières aux commentaires, que nous avons fait le choix de rédiger en français afin de garantir la meilleure compréhension possible au sein de l'équipe.
+* L'ensemble des commentaires du projets suivent le standard pydoc. De fait, il est tout à fait possible de produire une documentation du code à part à l'aide du fameux utilitaire.
+* Le projet ayant été développé de manière simultanée et étant donné le fait que nous utilisions le logiciel de gestion de version 'Git', nous avons fait le choix de développer notre partie du projet deux branches différentes, une pour le client et une autre pour le serveur. Ceci afin d'éviter un maximum de merges pouvant nous faire perdre un temps précieux. 
+* Une fois les deux parties client et serveur terminées, nous avons fait le choix de réaliser une revue de code par paire. Chacun reprenant le code de l'autre afin de repérer d'éventuelles améliorations possibles ou des erreurs certaines. 
+
+## VI. Capitalisation d'expérience
+
+Ce projet s'est révelé être excessivement enrichissant à plusieurs niveaux: techniques, humain, apprentissage relatif à la conception d'un "jeu vidéo". Néanmoins, le choix de python comme langage de développement s'est révélé être relativement handicapant. En effet, notre code reposant énormément sur l'orienté objet, user d'un langage qui n'effectue pas de contrôle des types avant l'exécution fut compliqué, python ne se prétant pas spécialement à l'usage d'un tel design de code.  
+Concernant le modèle de conception utilisé pour notre projet, en plus du fait qu'il aurait été judicieux d'en changer étant donné l'usage obligatoire de python, celui-ci aurait nécessité un plus grand travail en amont afin d'en maximiser les bénéfices. 
 
 
 
