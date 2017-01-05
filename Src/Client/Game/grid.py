@@ -23,26 +23,26 @@ class Grid(object):
             self.cells.append(Grid.EMPTY)
 
     def can_play(self, player, cellnum):
-		"""
-			Définie si la case jouée est comprise dans la grille
-		"""
+        """
+            Definie si la case jouee est comprise dans la grille
+        """
         if cellnum < 0 or cellnum >= Grid.NB_CELLS:
             return False
         return True
 
     def play(self, player, cellnum):
-		"""
-			Définie si la case jouée est viable ou non 
-		"""
+        """
+            Definie si la case jouee est viable ou non 
+        """
         if self.can_play(player, cellnum) is False or self.cells[cellnum] != Grid.EMPTY: 
             return False
         self.cells[cellnum] = player
         return True
 
     def display(self):
-		"""
-			Affichage de la grille
-		"""
+        """
+            Affichage de la grille
+        """
         for row in range(3):
             out = "|"
             for col in range(3):

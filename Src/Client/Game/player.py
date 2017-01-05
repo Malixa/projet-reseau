@@ -1,27 +1,27 @@
 """
-	Ce module contient : 
-		La classe player : 
+	Ce module contient :
+		La classe player : represente l'unique joueur cote client
 """
 from . import grid as grid
 
 class Player(object):
-	"""
-		Représente le joueur.
-	"""
+    """
+        Represente le joueur.
+    """
 
     def __init__(self, unit, gri):
         self.unit = unit
         self.grid = gri
         self.discovered = list()
-		#liste de découverte des coups adverses
+		#liste de decouverte des coups adverses
         self.winner = None
         print("Vous etes le joueur "+str(unit)+". Symbole: "+grid.Grid.SYMBOLS[self.unit])
 
 
-    def can_play(self, cell): 
-		"""
-			Retourne true si la case est jouable false sinon
-		"""
+    def can_play(self, cell):
+        """
+            Retourne true si la case est jouable false sinon
+        """
         if cell in self.discovered:
             return False
         if self.grid.cells[cell] == self.unit:
@@ -31,15 +31,15 @@ class Player(object):
         return True
 
     def discover(self, cell):
-		"""
-			Ajoute une case a la découverte du joueur (liste des cases joués par l'ennemi)
-		"""
+        """
+            Ajoute une case a la decouverte du joueur (liste des cases jouees par l'ennemi)
+        """
         self.discovered.append(cell)
 
     def play(self, cell):
-		"""
-			Permet au joueur de jouer un coup
-		"""
+        """
+            Permet au joueur de jouer un coup
+        """
         if cell in self.discovered:
             return False
         if self.grid.cells[cell] == self.unit:
@@ -49,15 +49,15 @@ class Player(object):
         return self.grid.play(self.unit, cell)
 
     def is_winner(self):
-		"""
-			Défini le gagnant
-		"""
+        """
+            Defini le gagnant
+        """
         return self.grid.winner(self.unit)
 
     def display_grid(self):
-		"""
-			Permet l'affichage de la grille
-		"""
+        """
+            Permet l'affichage de la grille
+        """
         for row in range(3):
             out = "|"
             for col in range(3):

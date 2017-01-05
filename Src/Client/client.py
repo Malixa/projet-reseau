@@ -23,10 +23,9 @@ from . import packetdisconnected as packetdisconnected
 from . import packetpass as packetpass
 
 class Client(object):
-
-	"""
-		Représente le client
-	"""
+    """
+        Represente le client
+    """
 
     Running = False
 
@@ -47,10 +46,9 @@ class Client(object):
 
     @staticmethod
     def player(player_index):
-		"""
-			Lance une partie en tant que joueur et gère la routine de jeu
-		"""
-
+        """
+	    	Lance une partie en tant que joueur et gere la routine de jeu
+        """
         print("####################")
         print("Connecte au serveur en tant que joueur !")
         print("En attente d'un adversaire...")
@@ -85,10 +83,9 @@ class Client(object):
 
     @staticmethod
     def observer():
-		"""
-			Lance une partie en tant qu'observateur et gère la routine d'observation
-		"""
-
+        """
+            Lance une partie en tant qu'observateur et gere la routine d'observation
+        """
         print("####################")
         print("Connecte au serveur en tant qu'observateur !")
         print("En attente des joueurs...")
@@ -122,9 +119,9 @@ class Client(object):
 
     @staticmethod
     def main():
-		"""
-			Connecte le client au serveur et définie son rôle
-		"""
+        """
+        	Connecte le client au serveur et definie son role
+        """
 
         server.Server.start()
         try:
@@ -149,16 +146,16 @@ class Client(object):
 
     @staticmethod
     def stop():
-		"""
-			Cause l'arret du client
-		"""
+        """
+            Cause l'arret du client
+        """
         Client.Running = False
 
     @staticmethod
     def start():
-		"""
-			Permet le lancement de la partie
-		"""
+        """
+            Permet le lancement de la partie
+        """
         Client.Running = True
         Client.register_proto()
         Client.main()

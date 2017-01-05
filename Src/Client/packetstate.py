@@ -1,6 +1,6 @@
 """
 	Ce module contient:
-		La classe packetstate : gère l'envoi des coups joués
+		La classe packetstate : gere l'envoi des coups joues
 
 """
 
@@ -9,19 +9,18 @@ from .Game import game as game
 
 
 class PacketState(packet.Packet):
-
-"""
-	La commande state renvoi la liste des coups joués au client permettant
-	l'affichage de la grille
-"""
+    """
+        La commande state renvoi la liste des coups joues au client permettant
+        l'affichage de la grille
+    """
 
     def run(self, ctx):
-		"""
-			Met en place la grille de jeu et affiche les coups joués
-		"""
+        """
+            Met en place la grille de jeu et affiche les coups joues
+        """
         data = list()
         for index in self.args[0].split(','):
-		#permet de séparer la liste des coups joués et d'afficher la grille
+		#permet de separer la liste des coups joues et d'afficher la grille
             if len(index) > 0:
                 data.append(int(index))
         game.Game.Instance.update_grid(data)

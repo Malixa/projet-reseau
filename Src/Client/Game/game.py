@@ -8,9 +8,9 @@ from . import grid as grid
 
 
 class Game(object):
-	"""
-		Représente le jeu et son déroulement
-	"""
+    """
+        Represente le jeu et son déroulement
+    """
 
     Instance = None
 
@@ -35,11 +35,11 @@ class Game(object):
         if is_player != 0:
             self.player = player.Player(is_player, self.grid)
             self.mode = Game.MODE_PLAYER
-            
+
     def update_grid(self, data):
-		"""
-			Met à jour l'état de la grille
-		"""
+        """
+            Met a jour l'etat de la grille
+        """
         for i in range(len(data)):
             if data[i] == -1:
                 continue
@@ -50,7 +50,8 @@ class Game(object):
         """
             En mode observer, determine si il y a un gagnant et retourne son symbole, sinon None
         """
-        # En mode observer le client ne recoit pas de end. C'est a lui meme de determiner de la fin de la partie
+        # En mode observer le client ne recoit pas de end. C'est a lui meme
+        # de determiner de la fin de la partie
         if self.mode == Game.MODE_OBSERVER:
             if self.grid.winner(grid.Grid.J1):
                 return grid.Grid.SYMBOLS[grid.Grid.J1]
@@ -63,9 +64,9 @@ class Game(object):
 
 
     def display_grid(self):
-		"""
-			Permet l'affichage de la grille différent selon le client
-		"""
+        """
+            Permet l'affichage de la grille different selon le client
+        """
         if self.mode == Game.MODE_OBSERVER:
             self.grid.display()
         else:

@@ -1,13 +1,12 @@
 """
 	Ce module contient:
-		La classe packetturn : gère l'affectation du tours du client
+		La classe packetturn : gere l'affectation du tours du client
 
 """
 
 from .System import packet as packet
 from .Game import game as game
 
-from . import client as client
 
 from . import packetexit as packetexit
 from . import packetgetstate as packetgetstate
@@ -18,15 +17,14 @@ from . import packetend as packetend
 from . import packetpass as packetpass
 
 class PacketTurn(packet.Packet):
-
-	"""
-		La commande turn averti le client que c'est a son tours de jouer
-	"""
+    """
+        La commande turn averti le client que c'est a son tour de jouer
+    """
 
     def run(self, ctx):
-		"""
-			Met en place la routine de jeu
-		"""
+        """
+            gere le deroulement d'un tour
+        """
         print("=====================NOUVEAU TOUR")
         # Met a jour l'etat de la grille de jeu
         getstate = packetgetstate.PacketGetState(self.server)

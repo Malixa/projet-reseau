@@ -1,6 +1,6 @@
 """
 	Ce module contient:
-		La classe packetshutdown : gère le crash serveur
+		La classe packetshutdown : gere l'arret serveur
 
 """
 
@@ -9,16 +9,15 @@ from .System import packet as packet
 from . import client as client
 
 class PacketShutdown(packet.Packet):
-
 	"""
-		La commande shutdown informe le client que le serveur c'est arreté
-		et déconnecte le client
+		La commande shutdown informe le client que le serveur s'est arrete
+		et deconnecte le client
 	"""
 
-    def run(self, ctx):
+	def run(self, ctx):
 		"""
-			déconnecte le client en cas d'arret du serveur
+			deconnecte le client en cas d'arret du serveur
 		"""
-        client.Client.stop() #arret du client
+		client.Client.stop() #arret du client
 
 

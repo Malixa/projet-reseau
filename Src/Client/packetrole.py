@@ -1,17 +1,17 @@
 """
 	Ce module contient:
-		La classe packetrole : gère le role du client (joueur ou observateur)
+		La classe packetrole : gere le role du client (joueur ou observateur)
 
 """
 
-from .System import packet as packet 
+from .System import packet as packet
 
 class PacketRole(packet.Packet):
+    """
+    La commande role indique au client s'il est joueur ou observateur
+    Indique au joueur son numero de joueur
+    """
 
-	"""
-		La commande role indique au client s'il est joueur ou observateur
-		Indique au joueur son numéro de joueur
-	"""
     ROLES = ['player', 'observer']
 
     def __init__(self, server, args):
@@ -21,9 +21,9 @@ class PacketRole(packet.Packet):
 
 
     def run(self, ctx):
-		"""
-			Règle les propriétés rôles et player_index du paquet
-		"""
+        """
+            Regle les proprietes roles et player_index du paquet
+        """
         for role in PacketRole.ROLES:
             if role == self.args[0]:
                 self.role = role
@@ -32,14 +32,14 @@ class PacketRole(packet.Packet):
 
 
     def is_player(self):
-		"""
-			Defini le role du client : joueur
-		"""
+        """
+            Defini le role du client : joueur
+        """
         return self.role == PacketRole.ROLES[0]
 
 
     def is_observer(self):
-		"""
-			defini le role du client : observateur
-		"""
+        """
+            defini le role du client : observateur
+        """
         return self.role == PacketRole.ROLES[1]

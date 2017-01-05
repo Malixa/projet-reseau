@@ -1,18 +1,18 @@
 """
-	Ce module contient:
-		La classe packetexit : gère la déconnection volontaire du client
+Ce module contient:
+La classe packetexit : gere la deconnexion volontaire du client
 
 """
 from .System import packet as packet
 
 class PacketExit(packet.Packet):
+	"""
+	La commande exit permet au client de se deconnecter du serveur
+	"""
 
-	"""
-		La command eexit permet au client de se déconnecter du serveur
-	"""
-    def send(self):
+	def send(self):
 		"""
-			Envoi de la commande exit au serveur
+		Envoi de la commande exit au serveur
 		"""
-        data = "EXIT"
-        self.server.send(data)
+		data = "EXIT"
+		self.server.send(data)

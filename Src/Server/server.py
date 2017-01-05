@@ -61,17 +61,26 @@ class Server(object):
 
     @staticmethod
     def set_timer(amount, callback):
+        """
+            Regle un timer qui appelle callback apres amount secondes
+        """
         Server.Timer = Timer(amount, callback)
         Server.Timer.start()
 
     @staticmethod
     def stop_timer():
+        """
+            Annule le Timer
+        """
         if Server.Timer is not None:
             Server.Timer.cancel()
         Server.Timer = None
 
     @staticmethod
     def start():
+        """
+            Demarre le serveur
+        """
         Server.stop_timer()
         Server.register_proto()
         Server.main()
