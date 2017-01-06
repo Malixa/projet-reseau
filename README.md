@@ -2,7 +2,7 @@
 
 ## Avant-Propos
 
-Ce projet nécessite l'utilisation de python 3.5+ pour fonctionner (commande python3).
+Ce projet nécessite  l'utilisation de python 3.5+ pour fonctionner (commande python3).
 
 ## TODO
 
