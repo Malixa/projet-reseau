@@ -1,5 +1,8 @@
 # Rapport de réalisation - Projet Morpion en réseau
 
+* Célia Paqué 
+* Clovis Portron
+
 # Important 
 
 Pour lancer le projet, il est nécessaire de se rendre dans le répertoire Src et de lancer le script main.py à l'aide de la commande: 
