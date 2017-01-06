@@ -143,7 +143,7 @@ Afin de produire un code de la meilleure qualité possible un certain nombre de 
 * L'ensemble des commentaires du projets suivent le standard pydoc. De fait, il est tout à fait possible de produire une documentation du code à part à l'aide du fameux utilitaire.
 * Durant le développement nous avons utilisé pylint. Un linter permettant de produire un code respectant un certain nombre de standards.
 * Le projet ayant été développé de manière simultanée et étant donné le fait que nous utilisions le logiciel de gestion de version 'Git', nous avons fait le choix de développer notre partie du projet deux branches différentes, une pour le client et une autre pour le serveur. Ceci afin d'éviter un maximum de merges pouvant nous faire perdre un temps précieux. 
-* Une fois les deux parties client et serveur terminées, nous avons fait le choix de réaliser une revue de code par paire. Chacun reprenant le code de l'autre afin de repérer d'éventuelles améliorations possibles ou des erreurs certaines. 
+* Une fois les deux parties client et serveur terminées, nous avons fait le choix de réaliser une revue de code par paire, ayant lieu dans la même pièce afin de maximiser la compréhension. Chacun reprenant le code de l'autre afin de repérer d'éventuelles améliorations possibles ou des erreurs certaines. Certaines parties du projet furent ainsi réécrites.
 
 ## VI. Capitalisation d'expérience
 
