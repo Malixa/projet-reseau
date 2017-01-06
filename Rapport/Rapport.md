@@ -33,7 +33,7 @@ Si le joueur pose un pion:
 * Si le joueur peut jouer sur la case, alors un pion sera placé et se sera au tour du joueur suivant. 
 * Sinon la case n'est pas disponible car l'autre joueur l'occupe deja.  Dans ce cas, le joueur découvre le pion adverse qui devient visible sur sa grille, et le joueur passe son tour. 
 
-Si un joueur arrive a placer 3 pions en ligne, colonne ou diagonale, il est déclaré vainqueur. L'autre joueur est donc perdant. Une fois la victoire annoncée, les joueurs et observateurs peuvent essayer de se reconnecter au serveur. Premier connecté, premier servit, les deux premiers clients connectés seront joueurs.
+Si un joueur arrive a placer 3 pions en ligne, colonne ou diagonale, il est déclaré vainqueur. L'autre joueur est donc perdant. Une fois la victoire annoncée, les joueurs et observateurs peuvent essayer de se reconnecter au serveur. Premier connecté, premier servi, les deux premiers clients connectés seront joueurs.
 
 ## IV. Description des modes de fonctionnement 
 
@@ -68,7 +68,7 @@ Si le joueur quitte le jeu (en tapant exit, ou pour toute autre raison), un comp
 
 ### V.II Le partage des tâches et organisation de travail
 
-L'ensemble du projet pouvant facilement se découper en deux grand sous-ensembles client et serveur, le partage des tâche a été erlativement simple à mettre en place. Ainsi Célia Paqué a été chargée de développer le client, tandis que Clovis Portron devait produire un serveur fonctionnel. 
+L'ensemble du projet pouvant facilement se découper en deux grand sous-ensembles client et serveur, le partage des tâche a été relativement simple à mettre en place. Ainsi Célia Paqué a été chargée de développer le client, tandis que Clovis Portron devait produire un serveur fonctionnel. 
 
 Afin de permettre un développement parallèle et un bon environnement de développement, le logiciel de gestion de version Git a été utilisé. Le dépôt distant commun aux participants étant hébergé par la plateforme Github. 
 
